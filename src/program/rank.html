@@ -1,0 +1,17 @@
+<!-- target: rank -->
+<div class="rank-wrap">
+    <h4>排行榜</h4>
+    <ol class="rank-list">
+        <!-- for: ${list} as ${item} -->
+        <li>
+            <h5>${item.name}</h5>
+            <div class="bar">
+                <span class="bar-bg"></span>
+                <em class="bar-front" style="width:${item.progress}%;"></em>
+            </div>
+            <i class="num">${item.voteNum}票</i>
+        </li>
+        <!-- /for -->
+    </ol>
+</div>
+

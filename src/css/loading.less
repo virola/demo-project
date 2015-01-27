@@ -1,0 +1,174 @@
+@import 'mixin';
+
+// 首页加载
+.page-loading {
+    padding-top: 3em;
+    
+    img {
+        margin: 0 auto;
+        width: 80%;
+    }
+}
+
+// ajax加载样式
+.loading {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+}
+.circle {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px;
+    margin-top: -32px;
+}
+.circle div {
+    position: absolute;
+    background-color: #fff;
+    width: 15px;
+    height: 15px;
+    -moz-border-radius: 10px;
+    -moz-animation-name: bounce-circle;
+    -moz-animation-duration: 0.88s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: linear;
+    -webkit-border-radius: 10px;
+    -webkit-animation-name: bounce-circle;
+    -webkit-animation-duration: 0.88s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: linear;
+    -ms-border-radius: 10px;
+    -ms-animation-name: bounce-circle;
+    -ms-animation-duration: 0.88s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-direction: linear;
+    -o-border-radius: 10px;
+    -o-animation-name: bounce-circle;
+    -o-animation-duration: 0.88s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-direction: linear;
+    border-radius: 10px;
+    animation-name: bounce-circle;
+    animation-duration: 0.88s;
+    animation-iteration-count: infinite;
+    animation-direction: linear;
+}
+#circle-1 {
+    left: 0;
+    top: 25px;
+    -moz-animation-delay: 0.33s;
+    -webkit-animation-delay: 0.33s;
+    -ms-animation-delay: 0.33s;
+    -o-animation-delay: 0.33s;
+    animation-delay: 0.33s;
+}
+#circle-2 {
+    left: 7px;
+    top: 7px;
+    -moz-animation-delay: 0.44s;
+    -webkit-animation-delay: 0.44s;
+    -ms-animation-delay: 0.44s;
+    -o-animation-delay: 0.44s;
+    animation-delay: 0.44s;
+}
+#circle-3 {
+    top: 0;
+    left: 25px;
+    -moz-animation-delay: 0.55s;
+    -webkit-animation-delay: 0.55s;
+    -ms-animation-delay: 0.55s;
+    -o-animation-delay: 0.55s;
+    animation-delay: 0.55s;
+}
+#circle-4 {
+    right: 7px;
+    top: 7px;
+    -moz-animation-delay: 0.66s;
+    -webkit-animation-delay: 0.66s;
+    -ms-animation-delay: 0.66s;
+    -o-animation-delay: 0.66s;
+    animation-delay: 0.66s;
+}
+#circle-5 {
+    right: 0;
+    top: 25px;
+    -moz-animation-delay: 0.77s;
+    -webkit-animation-delay: 0.77s;
+    -ms-animation-delay: 0.77s;
+    -o-animation-delay: 0.77s;
+    animation-delay: 0.77s;
+}
+#circle-6 {
+    right: 7px;
+    bottom: 7px;
+    -moz-animation-delay: 0.88s;
+    -webkit-animation-delay: 0.88s;
+    -ms-animation-delay: 0.88s;
+    -o-animation-delay: 0.88s;
+    animation-delay: 0.88s;
+}
+#circle-7 {
+    left: 25px;
+    bottom: 0;
+    -moz-animation-delay: 0.99s;
+    -webkit-animation-delay: 0.99s;
+    -ms-animation-delay: 0.99s;
+    -o-animation-delay: 0.99s;
+    animation-delay: 0.99s;
+}
+#circle-8 {
+    left: 7px;
+    bottom: 7px;
+    -moz-animation-delay: 1.1s;
+    -webkit-animation-delay: 1.1s;
+    -ms-animation-delay: 1.1s;
+    -o-animation-delay: 1.1s;
+    animation-delay: 1.1s;
+}
+@-moz-keyframes bounce-circle {
+    0% {
+        -moz-transform: scale(1)
+    }
+    100% {
+        -moz-transform: scale(.3)
+    }
+}
+@-webkit-keyframes bounce-circle {
+    0% {
+        -webkit-transform: scale(1)
+    }
+    100% {
+        -webkit-transform: scale(.3)
+    }
+}
+@-ms-keyframes bounce-circle {
+    0% {
+        -ms-transform: scale(1)
+    }
+    100% {
+        -ms-transform: scale(.3)
+    }
+}
+@-o-keyframes bounce-circle {
+    0% {
+        -o-transform: scale(1)
+    }
+    100% {
+        -o-transform: scale(.3)
+    }
+}
+@keyframes bounce-circle {
+    0% {
+        transform: scale(1)
+    }
+    100% {
+        transform: scale(.3)
+    }
+}

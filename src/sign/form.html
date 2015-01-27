@@ -1,0 +1,24 @@
+<!-- target:signform -->
+<h3 class="banner">
+    <img src="src/img/banner.png" alt="泰富重装集团">
+</h3>
+<form action="#" class="checkin-form form" onsubmit="return false;">
+    <ul>
+        <li class="form-group">
+            <select name="department" class="form-control">
+                <!-- for: ${departments} as ${item} -->
+                <option value="${item.value}">${item.name}</option>
+                <!-- /for -->
+            </select>
+        </li>
+        <li class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="请输入姓名" maxlength="8" >
+        </li>
+        <li class="form-group">
+            <input type="text" name="mobile" class="form-control" placeholder="请输入手机号码" maxlength="11">
+        </li>
+        <li class="form-group">
+            <button type="submit" id="checkin-btn" class="btn btn-primary">签&nbsp;&nbsp;到</button>
+        </li>
+    </ul>
+</form>

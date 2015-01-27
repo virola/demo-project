@@ -1,0 +1,58 @@
+<!-- target: shakepage -->
+<section class="shake-wrap">
+    <img class="icon-shake" src="src/img/bg-shake.png" alt="手机摇一摇">
+</section>
+
+<!-- target: shakeWin -->
+<img class="bg-lucky" src="src/img/bg-lucky.jpg">
+<section class="shake-wrap">
+
+    <h4>恭喜您中奖啦！</h4>
+    <p class="result-text">${level} ${name}</p>
+    <a class="btn btn-primary btn-block" href="#/">去玩点其他的</a>
+</section>
+
+<!-- target: shakeAlready -->
+<section class="shake-wrap">
+    <h4>您已经摇过啦！</h4>
+    <!-- if: ${prizes.length} > 0 -->
+    <p class="result-text">
+        您在本次活动中摇到的奖品：<br>
+        <!-- for: ${prizes} as ${prize} -->
+        ${prize.level} ${prize.name}<br>
+        <!-- /for -->
+    </p>
+    <!-- /if -->
+    <a class="btn btn-primary btn-block" href="#/">去玩点其他的</a>
+</section>
+
+<!-- target: shakeNotWin -->
+<section class="shake-wrap">
+    <h4>再接再厉！</h4>
+    <!-- if: ${prizes.length} > 0 -->
+    <p class="result-text">
+        您在本次活动中摇到的奖品：<br>
+        <!-- for: ${prizes} as ${prize} -->
+        ${prize.level} ${prize.name}<br>
+        <!-- /for -->
+    </p>
+    <!-- /if -->
+    <div class="btn-group">
+        <a class="btn btn-primary" id="btn-restart" href="#/shake">再来一次</a>
+        <a class="btn btn-primary" href="#/">去玩点其他的</a>
+    </div>
+</section>
+
+<!-- target: shakeActOver -->
+<section class="shake-wrap">
+    <h4>您来太晚了，活动已经结束啦！</h4>
+    <!-- if: ${prizes.length} > 0 -->
+    <p class="result-text">
+        您在本次活动中摇到的奖品：<br>
+        <!-- for: ${prizes} as ${prize} -->
+        ${prize.level} ${prize.name}<br>
+        <!-- /for -->
+    </p>
+    <!-- /if -->
+    <a class="btn btn-primary btn-block" href="#/">去玩点其他的</a>
+</section>
