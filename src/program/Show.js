@@ -48,6 +48,8 @@ define(function (require, exports, module) {
                 voteNum: result,
                 voteId: data['vote_id']
             });
+        }).fail(function (result) {
+            require('common/dialog').alert(result && result.message || '投票失败！');
         });
     };
 

@@ -53,7 +53,9 @@ define(
                     }
 
                     if (item.fn) {
-                        button.on('click', item.fn);
+                        button.on('click', function () {
+                            item.fn.call(me);
+                        });
                     }
                     else {
                         button.on('click', function () {
@@ -91,8 +93,8 @@ define(
             }
         };
 
-        dialog.alert = function (msg, title) {
-            var dlg = new Dialog({
+        dialog.alert = function (msg, title, okhandler) {
+            var options = {
                 title: title,
                 content: msg,
                 mask: 1,
@@ -102,8 +104,13 @@ define(
                         style: 'ok'
                     }
                 ]
-            });
-
+            };
+            if (typeof okhandler == 'function') {
+                options.buttons[0].fn = function () {
+                    okhandler.call(this);
+                };
+            }
+            var dlg = new Dialog(options);
             return dlg;
         };
 

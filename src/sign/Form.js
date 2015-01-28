@@ -34,7 +34,7 @@ define(function (require, exports, module) {
                     name: data.name
                 });
                 
-                window.location.reload();
+                action.reload();
             });
         });
     };

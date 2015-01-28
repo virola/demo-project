@@ -156,7 +156,6 @@
 
     .btn {
         width: 80%;
-        margin-top: 1em;
     }
 }
 
@@ -316,6 +315,67 @@
         left: 0;
     }
 
+    h3 {
+        top: 25%;
+    }
+
+    .nobounce {
+        top: 20%;
+        margin: 0;
+    }
+
+    .bounce-bag {
+        .animation(bounce-down .4s .1s ease-out both);
+    }
+
+    h4 {
+        left: 0;
+        bottom: 40%;
+        text-align: center;
+        font-size: 18px;
+
+        em {
+            font-size: 30px;
+            color: @color-main;
+        }
+    }
+
+    h5 {
+        left: 0;
+        bottom: 30%;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    blockquote {
+        bottom: 22%;
+        font-size: 11px;
+
+        em {
+            color: @color-main;
+        }
+    }
+
+    .shake {
+        &-get {
+            width: 80%;
+            .animation(scale-in .8s ease-in both);
+        }
+
+        &-over {
+            width: 92%;
+        }
+        &-re {
+            width: 70%;
+        }
+        &-next {
+            width: 70%;
+        }
+        &-notwin {
+            width: 90%;
+        }
+    }
+
     .icon-shake {
         top: 20%;
         width: 60%;
@@ -327,20 +387,14 @@
     .btn-block, .btn-group {
         width: auto;
         position: absolute;
-        left: 3.5rem;
-        right: 3.5rem;
+        left: 1rem;
+        right: 1rem;
         bottom: 3.5rem;
+
     }
 
-    h4 {
-        bottom: 40%;
-        font-size: 20px;
-        font-weight: 600;
-    }
-
-    .result-text {
-        bottom: 30%;
-        font-size: 16px;
+    .btn {
+        font-size: 1rem;
     }
 }
 
@@ -353,7 +407,6 @@
         }
     }
 }
-
 
 // program section
 // 节目列表
@@ -380,9 +433,9 @@
         height: 100%;
     }
     .slide {
-        position: absolute;
+        // position: absolute;
         width: 100%;
-        height: 100%;
+        // height: 100%;
         background-color: @background-color;
 
         h4 {
@@ -440,15 +493,23 @@
     }
 
     .rank-link {
-        position: absolute;
-        bottom: 10%;
-        left: 50%;
+        display: block;
         width: 5em;
-        margin-left: -2.5em;
+        margin: 10px auto 0;
         text-align: center;
         color: @color-text-title;
         border-bottom: 1px solid @color-text-title;
     }
+}
+
+.arrow-down {
+    position: absolute;
+    width: 36px;
+    margin-left: -18px;
+    left: 50%;
+    bottom: 3%;
+
+    .animation(arrow-down 1.5s infinite ease-in-out);
 }
 
 // rank list 

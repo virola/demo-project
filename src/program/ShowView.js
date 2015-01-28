@@ -17,20 +17,42 @@ define(
             // 投票的反应
             view.on('vote', function (data) {
                 var id = data.voteId;
+                var btns = $('.btn[data-id="' + id + '"]');
+                btns.each(function (i) {
+                    var target = $(this).closest('.vote');
+                    // 票数增加
+                    target.find('p em').text(data.voteNum);
 
-                var target = $('.btn[data-id="' + id + '"]').closest('.vote');
+                    // +1漂浮
+                    var tip = $('<i/>').text('+1').addClass('tip');
+                    
+                    tip.appendTo(target.find('p'));
+                });
+            });
 
-                // 票数增加
-                target.find('p em').text(data.voteNum);
+            // 初始化上下翻页
+            var container = view.getContainerElement();
 
-                // +1漂浮
-                var tip = $('<i/>').text('+1').addClass('tip');
-                
-                tip.appendTo(target.find('p'));
+            $(container).on('touchstart, touchmove', function (e) {
+                e.preventDefault();
+            });
 
-                // setTimeout(function () {
-                //     tip.remove();
-                // }, 1000);
+            view.initSwiper();
+        };
+
+
+        ShowView.prototype.initSwiper = function() {
+            var view = this;
+            require(['swiper'], function (Swiper) {
+                view.swiper = new Swiper('.slides', {
+                    wrapperClass: 'slide-wrap',
+                    slideClass: 'slide',
+                    mode: 'vertical',
+                    loop: true,
+                    preventLinks: false,
+                    longSwipesRatio: 0.3,
+                    touchRatio: 1.2,
+                });
             });
         };
 

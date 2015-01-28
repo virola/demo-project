@@ -10,8 +10,8 @@ define(
         var TPL_CONF = {
             1: 'shakeWin',
             2: 'shakeAlready',
-            3: 'shakeNotWin',
-            4: 'shakeActOver'
+            3: 'shakeActOver',
+            5: 'shakeNotWin'
         };
 
         var View = require('er/View');
@@ -22,25 +22,32 @@ define(
 
         ShowView.prototype.template = 'shakepage';
 
-        ShowView.prototype.restart = function () {
-
-        };
-
         ShowView.prototype.showResult = function (status, data) {
-            console.log('result:' + status);
 
             var view = this;
-
             var template = TPL_CONF[status];
-            // view.model.set('name', data.name || '');
-            // view.model.set('level', data.level || '');
-            // view.model.set('prizes', data.prizes || []);
+
+            if (!template) {
+                require('common/dialog').alert('活动还未开始呢！', '', function () {
+                    require('er/locator').redirect('/');
+                    this.dispose();
+                });
+
+                return false;
+            }
 
             var etpl = require('etpl');
             var html = etpl.render(template, data);
             var container = view.getContainerElement();
             container.innerHTML = html;
-            // debugger;
+
+        };
+
+        ShowView.prototype.enterDocument = function () {
+            var view = this;
+            $(view.getContainerElement()).on('click', '#btn-restart', function () {
+                view.fire('restart');
+            });
         };
 
         require('er/util').inherits(ShowView, View);

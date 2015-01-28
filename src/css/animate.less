@@ -1,46 +1,44 @@
 @import 'mixin';
-
 @-webkit-keyframes pop {
-    from { 
+    from {
         .transform(translate(0, 0));
         opacity: 1;
     }
-    to {  
+    to {
         .transform(translate(0, -100%));
         opacity: 0;
     }
 }
 @-o-keyframes pop {
-    from { 
+    from {
         .transform(translate(0, 0));
         opacity: 1;
     }
-    to {  
+    to {
         .transform(translate(0, -100%));
         opacity: 0;
     }
 }
 @-moz-keyframes pop {
-    from { 
+    from {
         .transform(translate(0, 0));
         opacity: 1;
     }
-    to {  
+    to {
         .transform(translate(0, -100%));
         opacity: 0;
     }
 }
 @keyframes pop {
-    from { 
+    from {
         .transform(translate(0, 0));
         opacity: 1;
     }
-    to {  
+    to {
         .transform(translate(0, -100%));
         opacity: 0;
     }
 }
-
 @-webkit-keyframes shake {
     0% {
         .transform(rotate(0));
@@ -109,7 +107,6 @@
         .transform(rotate(0));
     }
 }
-
 @-webkit-keyframes rotate-circle {
     from {
         .transform(rotate(-180deg));
@@ -142,7 +139,6 @@
         .transform(rotate(179deg));
     }
 }
-
 @-webkit-keyframes blink {
     0% {
         opacity: 1;
@@ -187,7 +183,6 @@
         opacity: 1;
     }
 }
-
 @-webkit-keyframes scale-in {
     0% {
         .transform(scale(.3));
@@ -232,7 +227,6 @@
         .transform(scale(1));
     }
 }
-
 @-webkit-keyframes bounce-down {
     from {
         .transform(scale(.5) translateY(-100%));
@@ -263,5 +257,47 @@
     }
     to {
         .transform(scale(1) translateY(0));
+    }
+}
+@-webkit-keyframes arrow-down {
+    0%, 30% {
+        opacity: 0;
+        -webkit-transform: translate(0, 10px);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate(0, -8px);
+    }
+}
+@-moz-keyframes arrow-down {
+    0%, 30% {
+        opacity: 0;
+        -moz-transform: translate(0, 10px);
+    }
+    60% {
+        opacity: 1;
+        -moz-transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        -moz-transform: translate(0, -8px);
+    }
+}
+@keyframes arrow-down {
+    0%, 30% {
+        opacity: 0;
+        transform: translate(0, 10px);
+    }
+    60% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(0, -8px);
     }
 }

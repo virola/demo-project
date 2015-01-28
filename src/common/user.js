@@ -77,11 +77,17 @@ define(
                 $.each(options, function (key, value) {
                     if (key == SIGNED_KEY) {
                         userModel.signed = true;
+
+                        require('er/permission').add({
+                            'signed': {
+                                'SIGN': false,
+                                'INDEX': true
+                            }
+                        });
                     }
                     userModel.data[key] = value;
                 });
                 
-                console.log(userModel);
                 
                 storage.set('user', userModel);
 

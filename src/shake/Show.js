@@ -36,6 +36,10 @@ define(function (require, exports, module) {
             // 停止摇奖
             shake.stop();
         });
+
+        action.view.on('restart', function () {
+            action.reload();
+        });
     };
 
     require('er/util').inherits(Show, Action);

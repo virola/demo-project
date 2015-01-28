@@ -5,38 +5,50 @@
 
 <!-- target: shakeWin -->
 <img class="bg-lucky" src="src/img/bg-lucky.jpg">
-<section class="shake-wrap">
-
-    <h4>恭喜您中奖啦！</h4>
-    <p class="result-text">${level} ${name}</p>
+<section class="shake-wrap shake-result">
+    <h3><img class="shake-get" src="src/img/shake-get.png"></h3>
+    <h4>恭喜您摇到了 <em>${cur_value}</em></h4>
+    <!-- if: ${round} < 3 -->
+    <h5 class="result-text">请耐心等待第<!-- if: ${round} == 1 -->二<!-- elif: ${round} == 2 -->三<!-- /if -->轮摇一摇活动开放！</h5>
+    <!-- /if -->
     <a class="btn btn-primary btn-block" href="#/">去玩点其他的</a>
 </section>
 
 <!-- target: shakeAlready -->
-<section class="shake-wrap">
-    <h4>您已经摇过啦！</h4>
-    <!-- if: ${prizes.length} > 0 -->
-    <p class="result-text">
-        您在本次活动中摇到的奖品：<br>
-        <!-- for: ${prizes} as ${prize} -->
-        ${prize.level} ${prize.name}<br>
-        <!-- /for -->
-    </p>
+<section class="shake-wrap shake-result">
+    <h3 class="nobounce">
+        <!-- if: ${round} < 3 -->
+        <img class="shake-next" src="src/img/bounce-next.png" title="请等下轮">
+        <!-- else -->
+        <img class="shake-re" src="src/img/shake-re.png" title="摇过了">
+        <!-- /if -->
+    </h3>
+    <h4>别太贪心哦！本轮您已摇过了</h4>
+    <!-- if: ${round} < 3 -->
+    <h5 class="result-text">请耐心等待第<!-- if: ${round} == 1 -->二<!-- elif: ${round} == 2 -->三<!-- /if -->轮摇一摇活动开放！</h5>
+    <!-- /if -->
+    <!-- if: ${value} -->
+    <blockquote>您在摇一摇活动中摇到的奖品：<br>
+        <em>${value}</em>
+    </blockquote>
     <!-- /if -->
     <a class="btn btn-primary btn-block" href="#/">去玩点其他的</a>
+
 </section>
 
 <!-- target: shakeNotWin -->
-<section class="shake-wrap">
+<section class="shake-wrap shake-result">
+    <h3 class="nobounce">
+        <img class="shake-notwin" src="src/img/shake-notwin.png" title="本轮未能摇中">
+    </h3>
     <h4>再接再厉！</h4>
-    <!-- if: ${prizes.length} > 0 -->
-    <p class="result-text">
-        您在本次活动中摇到的奖品：<br>
-        <!-- for: ${prizes} as ${prize} -->
-        ${prize.level} ${prize.name}<br>
-        <!-- /for -->
-    </p>
+
+    <!-- if: ${value} -->
+    <blockquote>您在摇一摇活动中摇到的奖品：<br>
+        <em>${value}</em>
+    </blockquote>
     <!-- /if -->
+
     <div class="btn-group">
         <a class="btn btn-primary" id="btn-restart" href="#/shake">再来一次</a>
         <a class="btn btn-primary" href="#/">去玩点其他的</a>
@@ -44,15 +56,25 @@
 </section>
 
 <!-- target: shakeActOver -->
-<section class="shake-wrap">
-    <h4>您来太晚了，活动已经结束啦！</h4>
-    <!-- if: ${prizes.length} > 0 -->
-    <p class="result-text">
-        您在本次活动中摇到的奖品：<br>
-        <!-- for: ${prizes} as ${prize} -->
-        ${prize.level} ${prize.name}<br>
-        <!-- /for -->
-    </p>
+<section class="shake-wrap shake-result">
+    
+    <h3 class="nobounce">
+        <!-- if: ${round} < 3 -->
+        <img class="shake-over" src="src/img/shake-over.png" title="本轮结束">
+        <!-- else -->
+        <img class="shake-over" src="src/img/shake-over-all.png" title="全部结束">
+        <!-- /if -->
+    </h3>
+    
+    <!-- if: ${round} < 3 -->
+    <h4>您来太晚了，下次早点来吧！<br>请耐心等待第<!-- if: ${round} == 1 -->二<!-- elif: ${round} == 2 -->三<!-- /if -->轮摇一摇活动开放！</h4>
     <!-- /if -->
+
+    <!-- if: ${value} -->
+    <blockquote>您在摇一摇活动中摇到的奖品：<br>
+        <em>${value}</em>
+    </blockquote>
+    <!-- /if -->
+
     <a class="btn btn-primary btn-block" href="#/">去玩点其他的</a>
 </section>
