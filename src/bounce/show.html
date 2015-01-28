@@ -25,7 +25,7 @@
         <img class="bounce-bag" src="src/img/bg-bounce.png" alt="泰富送红包">
     </div>
     
-    <h3>抢到啦!</h3>
+    <h3><img class="bounce-get" src="src/img/bounce-get.png" title="抢到啦!"></h3>
     <h4>恭喜您抢到了<em>${value}</em>元红包</h4>
     <blockquote>红包两小时内到账!</blockquote>
 
@@ -41,6 +41,13 @@
     <div class="bounce-group">
         <img class="bounce-bag" src="src/img/bg-bounce.png" alt="泰富送红包">
     </div>
+    <h3 class="nobounce">
+        <!-- if: ${round} == 1 -->
+        <img class="bounce-next" src="src/img/bounce-next.png" title="抢过了">
+        <!-- else -->
+        <img class="bounce-re" src="src/img/bounce-re.png" title="抢过了">
+        <!-- /if -->
+    </h3>
     <h4>别太贪心哦！本轮您已抢过了
         <!-- if: ${round} == 1 --><br>请耐心等待第二轮红包开放！<!-- /if -->
     </h4>
@@ -54,9 +61,11 @@
         <img class="bounce-bag" src="src/img/bg-bounce.png" alt="泰富送红包">
     </div>
 
-    <h3>红包抢完啦!</h3>
-    <h4>别太贪心哦！本轮您已抢过了
-        <!-- if: ${round} == 1 --><br>请耐心等待第二轮红包开放！<!-- /if -->
+    <h3 class="nobounce"><img class="bounce-over" src="src/img/bounce-over.png" title="抢完了"></h3>
+    <h4>
+        <!-- if: ${round} == 1 -->请耐心等待第二轮红包开放！
+        <!-- else -->您来的太晚了！所有红包已抢完了！
+        <!-- /if -->
     </h4>
     <blockquote>您在抢红包活动中抢到的红包共计：<em>${value}元</em></blockquote>
     <a class="btn btn-primary btn-block" href="#/">去玩点其他的</a>
