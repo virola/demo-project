@@ -5,9 +5,13 @@ define(
         // sdk对象存储
         var wx;
 
-        exports.init = function () {
+        exports.init = function (callback) {
             require(['wxsdk'], function (sdk) {
                 wx = sdk;
+
+                exports.update(function() {
+                    exports.ready(callback);
+                });
             });
         };
 
@@ -44,8 +48,8 @@ define(
 
         var networkType;
 
-        exports.ready = function () {
-            wx && wx.ready(function(){
+        exports.ready = function (callback) {
+            wx.ready(function(){
                 wx.getNetworkType({
                     success: function (res) {
 
@@ -56,9 +60,9 @@ define(
                     }
                 });
 
-                exports.bindShare({
-                    // todo
-                });
+                if (typeof callback == 'function') {
+                    callback();
+                }
             });
         };
 
@@ -93,18 +97,17 @@ define(
         };
 
 
-        exports.update = function () {
+        exports.update = function (callback) {
             $.ajax({
                 url: URL_TOKEN, 
                 dataType: 'jsonp',
                 success: function (data) {
                     if (data.timestamp && data.noncestr && data.signature) {
                         exports.config(data);
+                        callback && callback();
                     }
                 }
             });
-
-            // 数据更新
         };
 
         exports.getNetworkType = function () {

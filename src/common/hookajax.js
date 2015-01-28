@@ -57,8 +57,10 @@ define(
                     return data;
                 }
 
+                console.log(data);
+
                 if (!data['is_login']) {
-                    var url = data['redirect'] || url.USER_LOGIN;
+                    var url = data['redirect'] || require('url').USER_LOGIN;
                     window.location.href = url;
                 }
                 else if (data['status'] == 0) {

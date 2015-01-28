@@ -8,25 +8,29 @@ define(
                 path: '/',
                 type: 'index/Index',
                 authority: 'INDEX',
-                noAuthorityLocation: '/sign'
+                noAuthorityLocation: '/sign',
+                title: '首页'
             },
             {
                 path: '/sign',
                 type: 'sign/Form',
                 authority: 'SIGN',
-                noAuthorityLocation: '/'
+                noAuthorityLocation: '/',
+                title: '签到'
             },
             {
                 path: '/message',
                 type: 'message/Form',
                 authority: 'INDEX',
-                noAuthorityLocation: '/sign'
+                noAuthorityLocation: '/sign',
+                title: '新年祝福'
             },
             {
                 path: '/bounce',
                 type: 'bounce/Show',
                 authority: 'INDEX',
-                noAuthorityLocation: '/sign'
+                noAuthorityLocation: '/sign',
+                title: '新年红包'
             },
             {
                 path: '/shake',

@@ -24,6 +24,9 @@ define(
 
             $('.home-entrance a').on('click', function () {
                 // todo
+                view.fire('act-click', this);
+
+                return false;
             });
         };
 

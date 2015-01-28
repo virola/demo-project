@@ -28,6 +28,7 @@ define(function (require, exports, module) {
         view.on('submit', function (data) {
             require('er/ajax').post(msgUrl, data).done(function (result) {
                 dialog.alert('提交成功');
+                $('#bless-msg').val('');
             }).fail(function (result) {
                 console.log(result);
                 dialog.alert(result.message || '提交失败，请稍后再试');
