@@ -5,6 +5,9 @@
 
 define(function (require, exports, module) {
 
+    // 活动状态缓存时间1min
+    var STATUS_CACHE = 60000;
+
     var Deferred = require('er/Deferred');
     var dialog = require('common/dialog');
 
@@ -76,7 +79,7 @@ define(function (require, exports, module) {
             var now = (new Date()).getTime();
 
             // 30s 内不用重复请求
-            if (now - status.timestamp < 30000) {
+            if (now - status.timestamp < STATUS_CACHE) {
                 request.resolve();
                 return request.promise;
             }
