@@ -35,7 +35,9 @@
 <script>
 require.config({
     'baseUrl': 'src',
-    'paths': {},
+    'paths': {
+        'wxsdk': 'http://res.wx.qq.com/open/js/jweixin-1.0.0'
+    },
     'packages': [
         {
             'name': 'eoo',
@@ -65,7 +67,7 @@ require.config({
 });
 </script>
 <script>
-var ENV_RUNTIME = 'dev';
+var ENV_RUNTIME = 'src';
 require(['main'], function (main) {
     main();
 });
