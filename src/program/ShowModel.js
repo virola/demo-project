@@ -23,6 +23,7 @@ define(
             for (var i = 0; i < len; i++) {
                 var item = list[i];
                 program.push({
+                    number: i + 1,
                     name: item['title'],
                     department: item['act_join'],
                     voteNum: item['vote_num'],

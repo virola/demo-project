@@ -28,7 +28,7 @@ define(function (require, exports, module) {
             shake.start();
             shake.once('shake', function (data) {
                 var status = data.status;
-                action.view.showResult(status, data);
+                action && action.view && action.view.showResult(status, data);
             });
         });
         

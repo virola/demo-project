@@ -15,8 +15,13 @@ define(
             });
         };
 
+        exports.enableDebug = function () {
+            options.debug = true;
+            exports.update();
+        };
+
         var options = {
-            debug: true,
+            debug: false, 
             jsApiList: [
                 'getNetworkType',
                 'onMenuShareTimeline',

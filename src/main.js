@@ -58,10 +58,10 @@ define(function (require, exports, module) {
                         weixin.update(bindWxShare);
                     }
                 );
+
+                // debugger
+                weixin.enableDebug();  
             });
-
-
-            
         });
 
         function bindWxShare() {

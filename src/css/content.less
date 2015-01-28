@@ -246,7 +246,12 @@
     }
 
     .nobounce {
-        bottom: 50%;
+        bottom: 45%;
+        margin: 0;
+    }
+
+    .bounce-bag {
+        .animation(bounce-down .4s .1s ease-out both);
     }
 
     h4 {
@@ -284,6 +289,8 @@
     // 抢红包结果
     .bounce-get {
         width: 86%;
+        .animation(scale-in .8s ease-in both);
+        // .transition(all 1s ease-in);
     }
 
     .bounce-over {
@@ -357,8 +364,8 @@
     .program-banner {
 
         padding: 5px;
-        border: 1px solid #ddd;
-        .border-radius(3px);
+        border: 1px solid @color-main;
+        .border-radius(5px);
 
         img {
             max-width: 100%;
@@ -396,7 +403,7 @@
 
     .vote {
         position: relative;
-        padding-top: 1em;
+        // padding-top: 1em;
         color: @color-main;
         text-align: center;
 
@@ -422,6 +429,14 @@
             color: #fff;
             font-size: 11px;
         }
+    }
+
+    .tip {
+        margin-top: 5px;
+        font-size: 11px;
+        color: @color-main;
+        line-height: 1.6;
+        text-align: center;
     }
 
     .rank-link {
