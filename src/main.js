@@ -23,30 +23,18 @@ define(function (require, exports, module) {
         );
 
         var user = require('common/user');
-        user.checkSign().done(function (data) {
-            console.log('main:', data);
-            
-            if (data.signed) {
-                permission.add({
-                    'signed': {
-                        'SIGN': false,
-                        'INDEX': true
-                    }
-                });
-            }
-            else {
-                permission.add({
-                    'unsigned': {
-                        'SIGN': true,
-                        'INDEX': false
-                    }
-                });
-            }
+        user.checkLogin().done(function (data) {
             
             
             require('common/hookajax')();
             require('./config');
             require('er').start();
+
+            // 跳转到签到
+            if (!data.signed) {
+                console.log('not signed!');
+                require('er/locator').redirect('/sign');
+            }
 
             // weixin init
             weixin.init(function () {

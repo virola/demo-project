@@ -1,9 +1,11 @@
 /**
- * @file 
+ * @file 签到表单
  * @author virola(virola.zhu@gmail.com)
  */
 
 define(function (require, exports, module) {
+
+    var user = require('common/user');
 
     var Action = require('er/Action');
 
@@ -11,7 +13,6 @@ define(function (require, exports, module) {
      * 签到表单
      */
     function Form() {
-        console.log('sign');
         Action.apply(this, arguments);
     }
 
@@ -28,13 +29,15 @@ define(function (require, exports, module) {
         view.on('submit', function (data) {
 
             require('er/ajax').post(signUrl, data).done(function (result) {
-                require('common/user').store({
-                    department: data.department,
-                    mobile: data.mobile,
-                    name: data.name
-                });
+                // user.store({
+                //     department: data.department,
+                //     mobile: data.mobile,
+                //     name: data.name
+                // });
+
+                user.updateSign(true);
                 
-                action.reload();
+                action.redirect('/');
             });
         });
     };

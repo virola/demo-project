@@ -1,12 +1,11 @@
 exports.execute = function (context) {
     var response = {
         status: 0,
-        is_login: 1,
+        is_login: 0,
         data: {
-            'open_id': 12345678,
+            'wx_openid': 12345678,
             'wx_avatar': 'src/img/temp/avatar.jpg',
-            'name': 'pmtest',
-            // 'mobile': '13111112222',
+            'wx_name': 'pmtest',
             'department': '场外'
         }
     };

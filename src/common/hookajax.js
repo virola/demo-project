@@ -34,9 +34,9 @@ define(
                     options.timeout = 30000;
                 }
 
-                var userId = userData && userData.data && userData.data['open_id'];
+                var userId = userData && userData.data && userData.data['wx_openid'];
                 if (userId) {
-                    options.url += ((options.url.indexOf('?') < 0) ? '?' : '&') + 'open_id=' + userId;
+                    options.url += ((options.url.indexOf('?') < 0) ? '?' : '&') + 'wx_openid=' + userId;
                 }
 
                 if (projectId) {
@@ -59,13 +59,17 @@ define(
 
                 console.log(data);
 
-                if (!data['is_login']) {
-                    var url = data['redirect'] || require('url').USER_LOGIN;
+                // 302 redirect
+                if (data['status'] == 302) {
+                    var url = data['redirect'];
                     window.location.href = url;
                 }
                 else if (data['status'] == 0) {
                     // success
-                    
+                    if (data['is_login'] == 0) {
+                        window.location.href = require('url').USER_LOGIN;
+                    }
+
                     return data['data'];
                 }
                 

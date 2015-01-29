@@ -2,7 +2,7 @@ define(
     function (require) {
 
         // 摇一摇间隔时间
-        var GAP_TIME = 5000;
+        var GAP_TIME = 15000;
 
         // request url
         var url = require('url').POST_SHAKE_GIFT;
