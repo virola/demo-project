@@ -35,8 +35,7 @@ exports.getProcessors = function () {
     var addCopyright = new AddCopyright();
 
     var tplMerge = new TplMerge({
-        outputType: 'js',
-        outputPluginId: 'tpl'
+        outputType: 'js'
     });
 
     return {
@@ -49,17 +48,25 @@ exports.getProcessors = function () {
 };
 
 exports.exclude = [
+    'data',
+    'lib',
     'tool',
     'doc',
     'test',
     'module.conf',
+    'dep/est',
     'dep/packages.manifest',
+    'dep/*/*/tests',
     'dep/*/*/test',
+    'dep/*/*/jsduck',
     'dep/*/*/doc',
     'dep/*/*/demo',
     'dep/*/*/tool',
     'dep/*/*/*.md',
     'dep/*/*/package.json',
+    'dep/*/*/LICENSE',
+    'dep/*/*/.npmignore',
+    'dep/*/*/.travis.yml',
     'edp-*',
     '.edpproj',
     '.svn',
@@ -72,7 +79,12 @@ exports.exclude = [
     '.DS_Store',
     '*.tmp',
     '*.bak',
-    '*.swp'
+    '*.swp',
+    '*.md5',
+    '.jshintrc',
+    'copyright.txt',
+    'README',
+    'package.json'
 ];
 
 exports.injectProcessor = function ( processors ) {
