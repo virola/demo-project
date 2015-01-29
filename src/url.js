@@ -1,5 +1,6 @@
 define(
     function (require) {
+        var ENV_RUNTIME = (window.location.href.indexOf('94uv') > -1 ? 'deploy' : 'dev');
 
         var url = {
             'dev': {
@@ -18,7 +19,7 @@ define(
                 POST_PROGRAM: 'act/success'
             },
 
-            'asset': {
+            'deploy': {
                 USER_LOGIN: '#/sign',
 
                 GET_ACCOUNT: '/index.php?app=user&func=wxLogin',
