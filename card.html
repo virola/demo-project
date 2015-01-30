@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>新年贺卡</title>
-    <link rel="stylesheet" href="src/css/card.less">
+    <link rel="stylesheet" href="src/card/card.less">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -13,13 +13,99 @@
 <body>
 <header class="nav">
     <h2 class="logo"><a href="#/"><img src="src/img/logo.png" alt="TIDFORE"></a></h2>
+    
+    <div class="music-stop music-play" id="audio-control">
+        <audio id="audio" controls autoplay="autoplay" loop>
+            <source src="src/img/card/music.mp3" type="audio/mpeg" />
+        </audio>
+    </div>
+    
 </header>
 <div id="main" class="main">
-    <section class="page-loading"><img src="src/img/load.gif"></section>
+    <section class="page-container">
+        <ul class="page-wrap">
+            <li class="page">
+                <div class="blessing">
+                    <p class="blessing-to"><span><img src="src/img/card/to_txt.png"></span>亲爱的员工</p>
+                    <p class="blessing-to">祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福。</p>
+                    <div class="main-pic">
+                        <img src="src/img/card/card_pic1.jpg">
+                    </div>
+                    <p class="blessing-from"><span><img src="src/img/card/from_txt.png"></span>你的泰富</p>
+                </div>
+            </li>
+            <li class="page">
+                <div class="propaganda-pic"><img src="src/img/card/propaganda_bg.png"></div>
+                <div class="propaganda-wx"><img src="src/img/card/propaganda_wx.jpg"></div>
+                <div class="propaganda-bottom"></div>
+            </li> 
+            <li class="page">
+                <div class="round-frame">
+                    <div class="hold-r hold-round1">
+                        <div class="round round1"></div>
+                    </div>
+                    <div class="hold-r hold-round2">
+                        <div class="round round2"></div>
+                    </div>
+                    <div class="round-bg"></div>
+                    <div class="round-time"><h3>选择照片</span><h4>已有10002人参与</h4></div>
+                </div>
+                <div class="gala">
+                    <p>上传您准备好的照片，给Ta一个意外惊喜吧！</p>
+                    <ul class="gala-txt">
+                        <li class="benison1"><input class="to-txt2" type="text"></li>
+                        <li class="benison2"><textarea class="bg-txt" name="wish" rows="3">请输入您要对Ta说的话，仅限30个字符...</textarea></li>
+                        <li class="benison3"><img src="src/img/card/from_txt.png"><input class="from-txt2" type="text"></li>
+                    </ul>
+                    <a class="mark-card-btn" href="#">生成新年贺卡</a>
+                </div>
+            </li>
+            <li class="page">
+                <div class="edit-photo">
+                    <strong>新年新气象 新年新祝福</strong>
+                    <img class="edit-pic" src="src/img/card/card_pic2.jpg">
+                    <p>移动或双指缩放图片</p>
+                    <a class="mark-photo-btn" href="#">确 定</a>
+                </div>
+            </li>
+            <li class="page">
+                <div class="round-frame">
+                    <div class="hold-r hold-round1">
+                        <div class="round round1"></div>
+                    </div>
+                    <div class="hold-r hold-round2">
+                        <div class="round round2"></div>
+                    </div>
+                    <div class="round-bg"></div>
+                    <div class="round-time"><h3>选择完成</h3><h4>已有1002人参与</h4></div>
+                </div>
+                <div class="gala">
+                    <p>上传您准备好的照片，给Ta一个意外惊喜吧！</p>
+                    <ul class="gala-txt">
+                        <li class="benison1"><input class="to-txt2" type="text"></li>
+                        <li class="benison2"><textarea class="bg-txt" name="wish" rows="3">请输入您要对Ta说的话，仅限30个字符...</textarea></li>
+                        <li class="benison3"><img src="src/img/card/from_txt.png"><input class="from-txt2" type="text"></li>
+                    </ul>
+                    <a class="mark-card-btn" href="#">生成新年贺卡</a>
+                </div>
+            </li>
+            <li class="page">
+                <div class="blessing">
+                    <p class="blessing-to"><span><img src="src/img/card/to_txt.png"></span>被祝福人名字</p>
+                    <p class="blessing-to">祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福。</p>
+                    <div class="main-pic">
+                        <img src="src/img/card/card_pic1.jpg">
+                    </div>
+                    <p class="blessing-from"><span><img src="src/img/card/from_txt.png"></span>祝福人名字</p>
+                </div>
+            </li>
+        </ul>
+    </section>
 </div>
 
 
 <script src="lib/zepto/zepto.min.js"></script>
+<script src="lib/modernizr/modernizr.min.js"></script>
 <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-0-2/esl.js"></script>
 <script>
 require.config({
@@ -31,10 +117,6 @@ require.config({
     'packages': []
 });
 </script>
-<script>
-require(['main'], function (main) {
-    main();
-});
-</script>
+<script src="src/card/Parallax.js"></script>
 </body>
 </html>
