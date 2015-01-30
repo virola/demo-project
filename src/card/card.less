@@ -6,57 +6,79 @@
     padding: 0;
 }
 
-/* swiper */
-.page-container {
-    margin: 0 auto;
-    position: relative;
+*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+
+.pt-wrapper {
+    width: 100%;
+    height: 100%;
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    perspective: 1200px;
+}
+
+.pt-page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
     overflow: hidden;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    -o-backface-visibility: hidden;
-    backface-visibility: hidden; /* Fix of Webkit flickering */
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+
+.pt-page-current, .no-js .pt-page {
+    visibility: visible;
     z-index: 1;
 }
-.page-wrap {
-    position: relative;
+.no-js body {
+    overflow: auto;
+}
+
+.pt-trigger-container {
+    position: absolute;
+    width: 300px;
+    z-index: 999999;
+    left: 50%;
+    margin-top: 75px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.pt-trigger {
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 10px 0 10px;
+    padding: 0 20px;
+    line-height: 40px;
+    height: 40px;
+    letter-spacing: 1px;
     width: 100%;
-    -webkit-transition-property: -webkit-transform, left, top;
-    -webkit-transition-duration: 0s;
-    -webkit-transform: translate3d(0px, 0, 0);
-    -webkit-transition-timing-function: ease;
-    -moz-transition-property: -moz-transform, left, top;
-    -moz-transition-duration: 0s;
-    -moz-transform: translate3d(0px, 0, 0);
-    -moz-transition-timing-function: ease;
-    -o-transition-property: -o-transform, left, top;
-    -o-transition-duration: 0s;
-    -o-transform: translate3d(0px, 0, 0);
-    -o-transition-timing-function: ease;
-    -o-transform: translate(0px, 0px);
-    -ms-transition-property: -ms-transform, left, top;
-    -ms-transition-duration: 0s;
-    -ms-transform: translate3d(0px, 0, 0);
-    -ms-transition-timing-function: ease;
-    transition-property: transform, left, top;
-    transition-duration: 0s;
-    transform: translate3d(0px, 0, 0);
-    transition-timing-function: ease;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-.page {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
+    cursor: pointer;
+    display: block;
+    font-family: Calibri;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
 }
 
-/* IE10 Windows Phone 8 Fixes */
-.swiper-wp8-vertical {
-    -ms-touch-action: pan-x;
+textarea::-webkit-input-placeholder {
+    color: #eee;
 }
-
 
 // PAGE CSS
 html, body {
@@ -91,187 +113,190 @@ audio {
     position: absolute;
     z-index: -1;
 }
-
-
 .arrow-down {
     position: absolute;
     width: 36px;
     margin-left: -18px;
     left: 50%;
     bottom: 3%;
-
     .animation(arrow-down 1.5s infinite ease-in-out);
 }
 
-
-/*贺卡封面*/
-.blessing{
+/* 贺卡封面 */
+.blessing {
     padding: 10% 15%;
     margin: 0 auto;
 }
-.blessing-to span, .blessing-from span{
+.blessing-to span, .blessing-from span {
     display: inline-block;
     padding-right: 4px;
     width: 25%;
 }
-.blessing-to span img,.blessing-from span img{
+.blessing-to span img, .blessing-from span img {
     width: 100%;
-    filter:alpha(opacity=60);opacity:0.6;
 }
-.blessing-to{
+.blessing-to {
     margin-bottom: 10px;
     font-size: 18px;
     line-height: 30px;
 }
-.main-pic{
+.main-pic {
     margin: 5% 0;
     padding: 3%;
     border: 1px solid #fdd118;
     border-radius: 4px;
 }
-.main-pic img{
+.main-pic img {
     display: block;
-    width:100%;
+    width: 100%;
 }
-.blessing-from{
+.blessing-from {
     padding: 20px 0;
     text-align: right;
 }
-.blessing-from span{
+.blessing-from span {
     width: 36%;
 }
-/*企业宣传页*/
-.propaganda-pic{
+
+/* 企业宣传页 */
+.propaganda-pic {
     margin: 0 auto;
     width: 86%;
 }
-.propaganda-pic img{
+.propaganda-pic img {
     width: 100%;
 }
 .propaganda-wx {
     margin: 20px auto;
     width: 36%;
 }
-.propaganda-wx img{
+.propaganda-wx img {
     width: 100%;
 }
-.propaganda-bottom{
+.propaganda-bottom {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 18%;
-    background: #ae0d20 url(../images/propaganda_line.png)no-repeat top center;
-    background-size: 100%; 
+    background: #ae0d20 url(../img/card/propaganda_line.png)no-repeat top center;
+    background-size: 100%;
 }
-/*祝贺制作页*/
-.round-frame{
+
+/* 祝贺制作页 */
+@outset-size: 120px;
+.round-frame {
     position: absolute;
     left: 50%;
     top: 4%;
-    margin-left: -60px;
-    width: 120px;
-    height: 120px;
+    margin-left: -@outset-size/2;
+    width: @outset-size;
+    height: @outset-size;
 }
-.round{
+.round {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: @outset-size;
+    height: @outset-size;
     border-radius: 100px;
-    -webkit-box-shadow: 0 0 5px rgb(102,102,102);
-    -moz-box-shadow: 0 0 5px rgb(102,102,102);
-    box-shadow: 0 0 5px rgb(102,102,102);
-    /*background-color: #ffcbc5;*/
+    -webkit-box-shadow: 0 0 5px rgb(102, 102, 102);
+    -moz-box-shadow: 0 0 5px rgb(102, 102, 102);
+    box-shadow: 0 0 5px rgb(102, 102, 102);
+    /* background-color: #ffcbc5;
+    */
     background: #ffc9c3;
-    /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffc9c3), to(#fff6f5));-moz-linear-gradient(top, #de5e50, #fea095)；*/
+    /* background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffc9c3), to(#fff6f5));
+    -moz-linear-gradient(top, #de5e50, #fea095)； */
 }
-.round1{
-    clip: rect(0px,120px,120px,60px);
+.round1 {
+    clip: rect(0px, @outset-size, @outset-size, @outset-size/2);
 }
-.round2{
-    clip: rect(0px,60px,120px,0px);
+.round2 {
+    clip: rect(0px, @outset-size/2, @outset-size, 0px);
 }
-.hold-r{
+.hold-r {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: @outset-size;
+    height: @outset-size;
     border-radius: 50%;
     z-index: 1;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#fea095), to(#de5e50));
     background: -moz-linear-gradient(top, #fea095, #de5e50);
 }
-.hold-round1{
-    clip: rect(0px,120px,120px,60px);
+
+
+.hold-round1 {
+    clip: rect(0px, @outset-size, @outset-size, @outset-size/2);
 }
-.hold-round2{
-    clip: rect(0px,60px,120px,0px); 
+.hold-round2 {
+    clip: rect(0px, @outset-size/2, @outset-size, 0px);
 }
-.round-bg{
-    position:absolute; 
-    border-radius:100px; 
-    width:120px; 
-    height:120px; 
-    /*background-color:#ffcbc5; */
+
+.round-bg {
+    position: absolute;
+    border-radius: @outset-size;
+    width: @outset-size;
+    height: @outset-size;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffc9c3), to(#fff6f5));
     background: -moz-linear-gradient(top, #de5e50, #fea095);
-    /*background: #fff6f5;*/
 }
-.round-time{
+
+@inset-size: 80px;
+.round-time {
     position: absolute;
-    border-radius: 100px;
-    -webkit-box-shadow: inset -5px 5px 15px 5px rgb(210,142,15),1px -1px 0px 0px #ce7512;
-    -moz-box-shadow: inset -5px 5px 15px 5px rgb(210,142,15),1px -1px 0px 0px #ce7512;
-    box-shadow: inset -5px 5px 20px 2px rgb(210,142,15), 1px -1px 0px 0px #ce7512;
+    border-radius: @inset-size;
+    -webkit-box-shadow: inset -5px 5px 15px 5px rgb(210, 142, 15), 1px -1px 0px 0px #ce7512;
+    -moz-box-shadow: inset -5px 5px 15px 5px rgb(210, 142, 15), 1px -1px 0px 0px #ce7512;
+    box-shadow: inset -5px 5px 20px 2px rgb(210, 142, 15), 1px -1px 0px 0px #ce7512;
     margin: 20px 0 0 20px;
     padding: 10px;
-    width: 60px;
-    height: 60px;
+    width: @inset-size;
+    height: @inset-size;
     background-color: #f6d300;
     z-index: 1;
     text-align: center;
 }
-.round-time h3,.round-time h4{
+.round-time h3, .round-time h4 {
     font-weight: normal;
     font-size: 14px;
     color: @background-color;
     padding-top: 5%
 }
-.round-time h4{
+.round-time h4 {
     font-size: 12px;
 }
-.gala{
+.gala {
     position: absolute;
-    left: 0;
-    top: 22%;
-    margin: 0 auto;
-    padding: 15%;
-    width: 70%;
+    top: 140px;
+    left: 10%;
+    width: 80%;
     text-align: center;
+
+    p {
+        display: block;
+        height: 50px;
+        font-size: 14px;
+    }
 }
-.gala p{
-    display: block;
-    height: 50px;
-    font-size: 14px;
-}
-.gala-txt{
+
+.gala-txt {
     margin: 20px auto;
     border-radius: 4px;
-    padding: 4% 3% 0 3%;
-    width: 94%;
-    height: 130px;
+    padding: 15px 10px 0;
+    width: 247px;
+    height: 150px;
     list-style-type: none;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255, 255, 255, 0.4);
 }
-.gala-txt input,.gala-txt textarea{
-    border:0; 
+.gala-txt input, .gala-txt textarea {
+    border: 0;
     font: 16px Microsoft YaHei, "\5B8B\4F53", Arial, HELVETICA;
     color: #ffffff;
 }
-.benison1{
+.part1 {
     position: relative;
     height: 24px;
 }
-.to-txt2{
+.to-txt {
     position: absolute;
     left: 0;
     top: 0;
@@ -280,36 +305,37 @@ audio {
     height: 23px;
     display: block;
     overflow: hidden;
-    background: url(../images/to_txt2.png) no-repeat left;
+    background: url(../img/card/to_txt2.png) no-repeat left;
     background-size: cover;
 }
-.benison2{
+.part2 {
     position: relative;
-    height: 70px;
+    height: 75px;
+
+    textarea {
+        padding: 3px 10px;
+        width: 227px;
+        height: 80px;
+        margin: 0 auto;
+        background: url(../img/card/bg_txt.png) no-repeat;
+        background-size: 454px/2 150px/2;
+        line-height: 25px;
+        resize: none;
+    }
 }
-.bg-txt{
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding-top: 4px;
-    width: 100%;
-    height: 66px;
-    background: url(../images/bg_txt.png) no-repeat;
-    background-size: cover;
-}
-.benison3{
+.part3 {
     position: relative;
     height: 30px;
 }
-.benison3 img{
+.part3 img {
     position: absolute;
     bottom: 6%;
     left: 20%;
     width: 24%;
 }
-.from-txt2{
+.from-txt {
     position: absolute;
-    bottom: 3%;
+    bottom: 2%;
     left: 48%;
     width: 50%;
     height: 23px;
@@ -317,7 +343,7 @@ audio {
     overflow: hidden;
     background: none;
 }
-.mark-card-btn,.mark-photo-btn{
+.mark-card-btn, .mark-photo-btn {
     margin: 0 auto;
     display: block;
     border-radius: 5px;
@@ -325,21 +351,22 @@ audio {
     height: 36px;
     line-height: 36px;
     text-align: center;
-    background-color: #fdd000; 
+    background-color: #fdd000;
     color: #5a3226;
     text-decoration: none;
 }
-.mark-card-btn:hover,.mark-photo-btn:hover{
-    background-color: #8a0009; 
+.mark-card-btn:hover, .mark-photo-btn:hover {
+    background-color: #8a0009;
     color: #fff;
 }
-/*编辑照片页*/
+
+/* 编辑照片页 */
 .edit-photo {
     margin: 0 auto;
     padding: 10%;
     text-align: center;
 }
-.edit-photo strong{
+.edit-photo strong {
     color: #fdd000;
     font-weight: bolder;
 }
@@ -349,82 +376,91 @@ audio {
     border-top: 1px solid #e9a1a9;
     border-bottom: 2px solid #e9a1a9;
 }
-.mark-photo-btn{
+.mark-photo-btn {
     width: 60%;
 }
-.edit-photo p{
-    margin-bottom: 10%; 
+.edit-photo p {
+    margin-bottom: 10%;
+}
+.tip {
+    width: 60%;
+    position: absolute;
+    top: 90%;
+    left: 20%;
+    opacity: 1;
+    color: #333;
+    font-size: 12px;
+    line-height: 120%;
 }
 
-
-
-
-/*iphone 4 高度调整*/
-@media screen and (max-height:460px) {
-    /*贺卡封面*/
-    .blessing{
+/* iphone 4 高度调整 */
+@media screen and (max-height: 480px) {
+    /* 贺卡封面 */
+    .blessing {
         padding: 5% 18% 0 18%;
     }
-    .blessing-to span, .blessing-from span{
+    .blessing-to span, .blessing-from span {
         width: 20%;
     }
-    .blessing-to{
+    .blessing-to {
         margin-bottom: 8px;
         font-size: 16px;
         line-height: 24px;
     }
-    .blessing-from{
+    .blessing-from {
         padding: 10px 0;
     }
-    .blessing-from span{
+    .blessing-from span {
         width: 30%;
     }
-    /*企业宣传页*/
-    .propaganda-pic{
+    
+    /* 企业宣传页 */
+    .propaganda-pic {
         width: 76%;
     }
     .propaganda-wx {
         margin: 12px auto;
         width: 26%;
     }
-    .propaganda-bottom{
+    .propaganda-bottom {
         height: 20%;
     }
-    /*祝贺制作页*/
-
-    .gala{
-        top: 25%;
-        padding: 12%;
-        width: 76%;
+    
+    /* 祝贺制作页 */
+    .gala {
+        p {
+            height: 20px;
+            font-size: 12px;
+        }
     }
-    .gala p{
-        height: 20px;
-        font-size: 12px;
-    }
-    .gala-txt{
+    .gala-txt {
         margin: 15px auto;
-        width: 88%;
     }
-    .benison1{
+    .part1 {
         position: relative;
         height: 24px;
     }
-    .benison3 img{
+    .part3 img {
         bottom: 1%;
     }
-    .mark-card-btn,.mark-photo-btn{
+    .mark-card-btn, .mark-photo-btn {
         height: 28px;
         line-height: 28px;
         width: 62%;
     }
-    /*编辑照片页*/
+    
+    /* 编辑照片页 */
     .edit-photo {
         padding: 6% 10% 10%;
     }
     .edit-pic {
         margin: 8% auto 4%;
     }
-    .mark-photo-btn{
+    .mark-photo-btn {
         width: 55%;
     }
 }
+
+@import 'less/content';
+@import 'less/transition';
+@import 'less/poster';

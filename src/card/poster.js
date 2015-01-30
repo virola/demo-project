@@ -115,6 +115,91 @@ var ApiPoster = (function() {
             _$imageUpload.find(".p" + id).html(text)
         })
     }
+
+var defaultData = {
+    "userContent": "",
+    "frameFileName": "",
+    "defaultBackground": "",
+    "userImageUrl": "",
+    "title": "",
+    "type": "poster",
+    "musicUrl": "",
+    "shareCount": "1012",
+    "fontColor": "#000000",
+    "colorList": [
+        {
+            "color": "#000000"
+        },
+        {
+            "color": "#ffffff"
+        }
+    ],
+    "dialogueList": [],
+    "textList": [
+        {
+            "id": "155",
+            "content": "小伙伴",
+            "fontName": "MHeiGB-Bold",
+            "fontSize": "20",
+            "x": "0",
+            "y": "0",
+            "height": "20",
+            "maxFontCount": "0",
+            "canEdit": "1",
+            "horizontalAlign": "1",
+            "fontColor": "",
+            "placeholder": "小伙伴",
+            "isShow": "1"
+        },
+        {
+            "id": "156",
+            "content": "新年快乐",
+            "fontName": "MHeiGB-Bold",
+            "fontSize": "20",
+            "x": "0",
+            "y": "0",
+            "height": "20",
+            "maxFontCount": "5",
+            "canEdit": "1",
+            "horizontalAlign": "1",
+            "fontColor": "",
+            "placeholder": "",
+            "isShow": "1"
+        },
+        {
+            "id": "157",
+            "content": "你的泰富",
+            "fontName": "MHeiGB-Bold",
+            "fontSize": "20",
+            "x": "0",
+            "y": "0",
+            "height": "20",
+            "maxFontCount": "0",
+            "canEdit": "1",
+            "horizontalAlign": "1",
+            "fontColor": "",
+            "placeholder": "签名",
+            "isShow": "1"
+        },
+        {
+            "id": "158",
+            "content": "",
+            "fontName": "MHeiGB-Bold",
+            "fontSize": "20",
+            "x": "0",
+            "y": "0",
+            "height": "20",
+            "maxFontCount": "0",
+            "canEdit": "1",
+            "horizontalAlign": "1",
+            "fontColor": "",
+            "placeholder": "",
+            "isShow": "0"
+        }
+    ]
+};
+
+
     function init(host, packageId, showPageId, uploadPageId, loadedCallback, writeTitle, btnChangeTitle, btnPublishTitle, mustUploadImage) {
         _host = host;
         _packageId = packageId;

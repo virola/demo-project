@@ -29,13 +29,10 @@ define(
                 var request = new Deferred();
                 var user = userModel || storage.get('user');
                 var data = user && user.data || '';
-                if (data && data[WX_KEY]) {
-                    // login
-                    request.resolve(user);
-                    return request.promise;
-                }
 
-                ajax.getJSON(url.GET_ACCOUNT).done(function (result) {
+                var userUrl = url.GET_ACCOUNT;
+
+                ajax.post(userUrl, data).done(function (result) {
                     if (result['status'] == 302) {
                         window.location.href = result['redirect'];
                         return false;
@@ -50,7 +47,6 @@ define(
                     }
 
                     storage.set('user', userModel);
-
                     request.resolve(userModel);
                 });
 

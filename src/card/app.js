@@ -2,20 +2,20 @@ var app = {};
 app.animate_goto = 3;
 app.animate_gotoup = 3;
 app.animate_gotodown = 4;
-app.shareTitle = $("#shareTitle").html();
-app.shareDesc = $("#shareDesc").html();
-app.shareImage = $("#shareImage").html();
+app.shareTitle = $('#shareTitle').html();
+app.shareDesc = $('#shareDesc').html();
+app.shareImage = $('#shareImage').html();
 app.shareUrl = location.href;
-app.shareAppId = "";
+app.shareAppId = '';
 app.canTouchPage = 1;
 app.startTouchPage = true;
 app.width = $(window).width();
-app.height = $(window).height();
+app.height = $('.main').height();
 app.isPc = false;
 app.pages = [];
 app.pagesBG = [];
 app.sharedCallback = null;
-app.host = "http://94uv.cn/";
+app.host = 'http://94uv.cn/';
 app.startPageId = 0;
 app.init = null;
 app.showCopyright = true;
@@ -24,27 +24,27 @@ app.loadingDelay = 0;
 app.loopSwipe = 1;
 
 app.showArrows = function() {
-    $("#arrows").show()
+    $('#arrows').show()
 };
 app.hideArrows = function() {
-    $("#arrows").hide()
+    $('#arrows').hide()
 };
 app.showShare = function(msg) {
-    var sharePage = $("#share");
+    var sharePage = $('#share');
     if (typeof(msg) != 'undefined') {
-        sharePage.find(".msg").html(msg)
+        sharePage.find('.msg').html(msg)
     }
     sharePage.show()
 };
 app.hideShare = function() {
-    $("#share").hide()
+    $('#share').hide()
 };
 app.setShareTitle = function(title) {
     document.title = title;
     app.shareTitle = title;
 };
 app.setShareImage = function(src) {
-    $("#shareImg").attr("src", src);
+    $('#shareImg').attr('src', src);
     app.shareImage = src;
 };
 app.setShareDesc = function(desc) {
@@ -53,7 +53,7 @@ app.setShareDesc = function(desc) {
 app.setShareUrl = function(url) {
     app.shareUrl = url;
 };
-$("#share").click(function() {
+$('#share').click(function() {
     $(this).hide()
 });
 app.showCopyright = false;
@@ -62,31 +62,31 @@ var _orialSharedDesc = null;
 var _orialSharedImage = null;
 
 function setShareInfo(title, desc, image, params) {
-    if (params != "") {
+    if (params != '') {
         var url = location.href;
-        var id = getUrlParameterByName("id");
-        if (url.indexOf("?") != -1) {
-            url = url.substr(0, url.indexOf("?"))
+        var id = getUrlParameterByName('id');
+        if (url.indexOf('?') != -1) {
+            url = url.substr(0, url.indexOf('?'))
         }
-        if (id != "") {
-            params = "id=" + id + "&" + params
+        if (id != '') {
+            params = 'id=' + id + '&' + params
         }
-        app.shareUrl = url + "?" + params
+        app.shareUrl = url + '?' + params
     }
     if (_orialSharedTitle == null) _orialSharedTitle = app.shareTitle;
     if (_orialSharedDesc == null) _orialSharedDesc = app.shareDesc;
     if (_orialSharedImage == null) _orialSharedImage = app.shareImage;
-    if (title == "") {
+    if (title == '') {
         app.shareTitle = _orialSharedTitle
     } else {
         app.shareTitle = title
     }
-    if (desc == "") {
+    if (desc == '') {
         app.shareDesc = _orialSharedDesc
     } else {
         app.shareDesc = desc
     }
-    if (image == "") {
+    if (image == '') {
         app.shareImage = _orialSharedImage
     } else {
         app.shareImage = image
@@ -96,7 +96,7 @@ function getUrlParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
     results = regex.exec(location.search);
-    return results === null ? "": decodeURIComponent(results[1].replace(/\+/g, " "))
+    return results === null ? '': decodeURIComponent(results[1].replace(/\+/g, " "))
 }
 function checkIsPC() {
     var system = {
@@ -116,59 +116,54 @@ function checkIsPC() {
 }
 function initPages() {
     var html = $("#pages").html();
-    html = html.replace(/\r|\n/g, "");
+    html = html.replace(/\r|\n/g, '');
     var patt = new RegExp('<page(.*?class=\"pt-page.*?)style=\"(.*?)\">(.*?)<\/page>', 'g');
-    var outer = "";
+    var outer = '';
     while ((result = patt.exec(html)) != null) {
         outer += "<div " + result[1] + "></div>";
         app.pages.push(result[3]);
         app.pagesBG.push(result[2])
     }
-    $("#wrapper").prepend(outer);
-    $("#wrapper").height(app.height);
-    $("#wrapper").css("top", ( - 1 * app.height) + "px");
-    $("#loading").css("top", ( - 2 * app.height) + "px");
-    $("#share").css("top", ( - 2 * app.height) + "px");
+    $('#wrapper').prepend(outer);
+    $('#wrapper').height(app.height);
+    $('#wrapper').css('top', ( - 1 * app.height) + 'px');
+    $('#loading').css('top', ( - 2 * app.height) + 'px');
+    $('#share').css('top', ( - 2 * app.height) + 'px');
     PageTransitions.init(app.startPageId)
 }
 function getPageIndex($pages, id) {
     var j = 0;
     for (j = 0; j < $pages.length; j++) {
-        if ($pages.eq(j).attr("id") == id) {
+        if ($pages.eq(j).attr('id') == id) {
             return j
         }
     }
     return 0
 }
 function initSpecialPages() {
-    var pages = ["#floor", "#loading", "#share"];
+    var pages = ['#floor', '#loading', '#share'];
     for ($i = 0; $i < pages.length; $i++) {
         $wrapper = $(pages[$i]);
-        $page = $wrapper.find(".pt-page");
-        if ($page.data("isrender") != true) {
-            $page.data("isrender", true);
+        $page = $wrapper.find('.pt-page');
+        if ($page.data('isrender') != true) {
+            $page.data('isrender', true);
             if (typeof(bindPageEvent) == 'function') {
                 bindPageEvent($page)
             }
             $page.height(app.height);
-            $page.find("img[data-link]").click(function() {
-                window.open($(this).attr("data-link"))
+            $page.find('img[data-link]').click(function() {
+                window.open($(this).attr('data-link'))
             });
-            $page.find("div[data-link]").click(function() {
-                window.open($(this).attr("data-link"))
+            $page.find('div[data-link]').click(function() {
+                window.open($(this).attr('data-link'))
             });
-            $page.find("*[name=\"entry\"]").each(function() {
-                var e = $(this);
-                var top = parseFloat(e.css("top")) * app.width / 640;
-                e.css("top", top + "px")
-            })
         }
         $wrapper.height(app.height)
     }
 }
 var curPageIndex = 0;
 function renderPage(pageId) {
-    var $pageWrapper = $("#wrapper");
+    var $pageWrapper = $('#wrapper');
     var $pages = $pageWrapper.find('.pt-page');
     var $curPage = null,
     $nextPage = null,
@@ -176,43 +171,38 @@ function renderPage(pageId) {
     if (pageId <= 0) {
         $curPage = $pageWrapper.find('div.pt-page:not(.ifpage)').first()
     } else {
-        $curPage = $pageWrapper.find("#" + pageId).first()
+        $curPage = $pageWrapper.find('#' + pageId).first()
     }
     curPageIndex = -1;
-    $prePage = $curPage.prev(":not(.ifpage)");
-    if ($prePage.attr("id") == undefined) {
+    $prePage = $curPage.prev(':not(.ifpage)');
+    if ($prePage.attr('id') == undefined) {
         $prePage = $pageWrapper.find('div.pt-page:not(.ifpage)').last();
         curPageIndex = 0
     }
-    $nextPage = $curPage.next(":not(.ifpage)");
-    if ($nextPage.attr("id") == undefined) {
+    $nextPage = $curPage.next(':not(.ifpage)');
+    if ($nextPage.attr('id') == undefined) {
         $nextPage = $pageWrapper.find('div.pt-page:not(.ifpage)').first();
         curPageIndex = 1
     }
     var renderList = [];
     renderList.push($curPage);
-    if ($curPage.attr("id") != $prePage.attr("id")) renderList.push($prePage);
-    if ($nextPage.attr("id") != $curPage.attr("id")) renderList.push($nextPage);
+    if ($curPage.attr('id') != $prePage.attr('id')) renderList.push($prePage);
+    if ($nextPage.attr('id') != $curPage.attr('id')) renderList.push($nextPage);
     for (i = 0; i < renderList.length; i++) {
         $cur = renderList[i];
-        cur = getPageIndex($pages, $cur.attr("id"));
-        if ($cur.data("isrender") != true) {
-            $cur.attr("style", app.pagesBG[cur]);
+        cur = getPageIndex($pages, $cur.attr('id'));
+        if ($cur.data('isrender') != true) {
+            $cur.attr('style', app.pagesBG[cur]);
             $cur.append(app.pages[cur]);
-            $cur.data("isrender", true);
+            $cur.data('isrender', true);
             if (typeof(bindPageEvent) == 'function') bindPageEvent($cur);
             $cur.height(app.height);
-            $cur.find("img[data-link]").click(function() {
-                window.open($(this).attr("data-link"))
+            $cur.find('img[data-link]').click(function() {
+                window.open($(this).attr('data-link'))
             });
-            $cur.find("div[data-link]").click(function() {
-                window.open($(this).attr("data-link"))
+            $cur.find('div[data-link]').click(function() {
+                window.open($(this).attr('data-link'))
             });
-            $cur.find("*[name=\"entry\"]").each(function() {
-                var e = $(this);
-                var top = parseFloat(e.css("top")) * app.width / 640;
-                e.css("top", top + "px")
-            })
         }
     }
 }
@@ -221,7 +211,7 @@ var endPos;
 var isScrolling = 0;
 function fnPageTouch(e) {
     switch (e.type) {
-    case "touchstart":
+    case 'touchstart':
         {
             if (e.targetTouches.length == 1) {
                 var touch = e.targetTouches[0];
@@ -233,7 +223,7 @@ function fnPageTouch(e) {
             }
             break
         }
-    case "touchend":
+    case 'touchend':
         {
             if (e.changedTouches.length == 1) {
                 var touch = e.changedTouches[0];
@@ -249,7 +239,7 @@ function fnPageTouch(e) {
             }
             break
         }
-    case "touchmove":
+    case 'touchmove':
         {　　
             if (e.targetTouches.length > 1 || e.scale && e.scale !== 1) {
                 return
@@ -280,29 +270,12 @@ function fnCheckPageStyle(page) {
 }
 function fnLoadPageStyle(page) {
     if (fnCheckPageStyle(page) == true) {
-        setTimeout(function() {
-            page.css("overflow", "visible");
-            if (app.isPc) {
-                $("#copyright").css({
-                    "position": "absolute",
-                    "top": $(document).height() + "px",
-                    "height": "100px"
-                })
-            }
-        },
-        800);
         lastScroll = page
     }
 }
 function fnUnLoadPageStyle() {
     if (lastScroll != undefined) {
         lastScroll.css("overflow", "hidden");
-        if (app.isPc) {
-            $("#copyright").css({
-                "position": "absolute",
-                "top": app.height + "px",
-            })
-        }
     }
 }
 function fnLoadScrollPage(page) {
@@ -317,14 +290,14 @@ function fnLoadScrollPage(page) {
         pageEvnet.addEventListener('touchstart', fnPageTouch, false);
         pageEvnet.addEventListener('touchmove', fnPageTouch, false);
         pageEvnet.addEventListener('touchend', fnPageTouch, false)
-    } else {}
+    }
 }
 function initPC() {
     var $copyright = $("#copyright");
     if (checkIsPC()) {
         app.isPc = true;
         app.width = 320;
-        app.height = 960 * (320 / 640);
+        app.height = Math.min(960 * (320 / 640), app.height);
         $(".pt-wrapper").width(app.width);
         $(".pt-wrapper").height(app.height);
         $(".pt-wrapper").css("margin", "0px auto");
@@ -332,18 +305,15 @@ function initPC() {
             "border": "none",
             "color": "#00b7ff",
             "background": "#fff",
-            "top": app.height + "px",
+            "top": $(document).height() + "px",
             "opacity": "1"
         });
         $copyright.show();
         var left = $(window).width() / 2 + app.width / 2;
-        $("#pcBoard").find(".qrcode div").html("<img src=\"http://www.starlord.cn/wsite/qrcode?url=" + decodeURIComponent(location.href) + "\"/>");
-        $("#pcBoard").css("left", left + "px");
-        $("#pcBoard").show();
-        $(".icon_arrow").hide()
-    } else {
-        var h = app.height - 40;
-        $copyright.css("top", h + "px")
+        $("#pc-board").find(".qrcode div").html("<img src=\"http://www.starlord.cn/wsite/qrcode?url=" + decodeURIComponent(location.href) + "\"/>");
+        $("#pc-board").css("left", left + "px");
+        $("#pc-board").show();
+        $(".icon-arrow").hide()
     }
 }
 function loading() {
@@ -412,87 +382,38 @@ function playPage() {
     if ($('#page-166').hasClass('in')) {
         if (page166Inited == false) {
             page166Inited = true;
-            ApiPoster.init(app.host, 70, "", "page-168",
-            function(imageurl, content) {
-                content = content.replace(/(^\s*)|(\s*$)/g, '');
-                if (content == "") {
-                    content = "小伙伴\n元旦快乐\nCHC"
-                }
-                html = content.split("\n");
-                var from = "";
-                if (html.length > 2) {
-                    from = html[2]
-                }
-                var msg = "";
-                for (i = 0; i < 2; i++) {
-                    msg += html[i];
-                    if (i == 0) {
-                        msg += "，"
+
+            // 贺卡初始化
+            ApiPoster.init(
+                app.host, 70, '', "page-168",
+                function(imageurl, content) {
+                    content = content.replace(/(^\s*)|(\s*$)/g, '');
+                    if (content == '') {
+                        content = "小伙伴\n新年快乐\n"
                     }
-                }
-                title = content.replace(/\n/g, " ");
-                $("#entry_166_10").html(msg);
-                $("#entry_166_15").html("——" + from);
-                $("#entry_166_12").attr("src", imageurl + "!480x320");
-                app.setShareImage(imageurl + "!300x300");
-                app.setShareTitle(title)
-            },
-            "写下你的祝福", "换一换", "生成我的贺卡", 0);
+                    html = content.split("\n");
+                    var from = '';
+                    if (html.length > 2) {
+                        from = html[2]
+                    }
+                    var msg = '';
+                    for (i = 0; i < 2; i++) {
+                        msg += html[i];
+                        if (i == 0) {
+                            msg += "，"
+                        }
+                    }
+                    title = content.replace(/\n/g, " ");
+                    app.setShareImage(imageurl + "!300x300");
+                    app.setShareTitle(title)
+                },
+                "写下你的祝福", "换一换", "生成我的贺卡", 0
+            );
+
             var scene = document.getElementById('page-166');
-            var parallax = new Parallax(scene)
+            var parallax = new Parallax(scene);
         }
-        setTimeout(function() {
-            $('#entry_166_8').removeClass().addClass('bounceIn animated ')
-        },
-        200);
-        setTimeout(function() {
-            $('#entry_166_9').removeClass().addClass('bounceIn animated ')
-        },
-        500);
-        setTimeout(function() {
-            $('#entry_166_10').removeClass().addClass('bounceIn animated ')
-        },
-        800);
-        setTimeout(function() {
-            $('#entry_166_5').removeClass().addClass('bounceInDown animated ')
-        },
-        1000);
-        setTimeout(function() {
-            $('#entry_166_6').removeClass().addClass('bounceInDown animated ')
-        },
-        1200);
-        setTimeout(function() {
-            $('#entry_166_7').removeClass().addClass('bounceInDown animated ')
-        },
-        1400);
-        setTimeout(function() {
-            $('#entry_166_12').removeClass().addClass('bounceInDown animated ')
-        },
-        1600);
-        setTimeout(function() {
-            $('#entry_166_13').removeClass().addClass('bounceInDown animated ')
-        },
-        1600);
-        setTimeout(function() {
-            $('#entry_166_11').removeClass().addClass('bounceIn animated ')
-        },
-        800);
-        setTimeout(function() {
-            $('#entry_166_15').removeClass().addClass('bounceIn animated ')
-        },
-        800);
-        setTimeout(function() {
-            $('#entry_166_17').removeClass().addClass('bounceInDown animated ')
-        },
-        1600);
-        setTimeout(function() {
-            $('#entry_166_18').removeClass().addClass('bounceIn animated ')
-        },
-        1000);
-        setTimeout(function() {
-            $('#entry_166_19').removeClass().addClass('bounceInDown animated ')
-        },
-        1600)
+        
     }
     if ($('#page-169').hasClass('in')) {
         restartSnow();
@@ -501,26 +422,7 @@ function playPage() {
             var scene = document.getElementById('page-169');
             var parallax = new Parallax(scene)
         }
-        setTimeout(function() {
-            $('#entry_169_5').removeClass().addClass('bounceIn animated ')
-        },
-        200);
-        setTimeout(function() {
-            $('#entry_169_6').removeClass().addClass('bounceIn animated ')
-        },
-        400);
-        setTimeout(function() {
-            $('#entry_169_7').removeClass().addClass('bounceIn animated ')
-        },
-        600);
-        setTimeout(function() {
-            $('#entry_169_11').removeClass().addClass('zoomIn animated ')
-        },
-        800);
-        setTimeout(function() {
-            $('#entry_169_11').removeClass().addClass('pulse animated animated_infinite')
-        },
-        1800)
+        
     }
     if ($('#page-168').hasClass('in')) {}
 }
@@ -570,22 +472,7 @@ function goPage2(animate, gotoPage) {
     $pages.removeClass("in");
     fnUnLoadPageStyle();
     fnVisiablePage($currentPage);
-    $currentPage.find("*[name=\"entry\"]").removeClass();
     playPage();
-    if (app.isPc == false) {
-        if (app.showCopyright) {
-            if (isLastPage == true) {
-                $("#copyright").show();
-                setTimeout(function() {
-                    $('#copyright').removeClass().addClass('copyright fadeIn animated ')
-                },
-                500)
-            } else {
-                $("#copyright").hide();
-                $('#copyright').removeClass().addClass("copyright")
-            }
-        }
-    }
 }
 function fnTouchMoveEnabled(e) {
     e.preventDefault();
@@ -593,12 +480,16 @@ function fnTouchMoveEnabled(e) {
 }
 function init() {
     app.width = $(window).width();
-    app.height = $(window).height();
-    if (app.init != null) app.init();
+    app.height = $('.main').height();
+    if (app.init != null) {
+        app.init();
+    }
+
     initPC();
     initPages();
     initSpecialPages();
     loading();
+
     var swip1 = true;
     if (app.canTouchPage == 1) {
         $('.u-arrow-down').eq(0).show();
@@ -622,6 +513,7 @@ $(function() {
         e.preventDefault()
     });
     init();
+
     if (app.canTouchPage == 1) {
         $(document).swipeUp(function() {
             if (app.startTouchPage) {
