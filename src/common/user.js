@@ -36,6 +36,10 @@ define(
                 }
 
                 ajax.getJSON(url.GET_ACCOUNT).done(function (result) {
+                    if (result['status'] == 302) {
+                        window.location.href = result['redirect'];
+                        return false;
+                    }
                     
                     console.log('check user data', result);
                     userModel.data = result.data;

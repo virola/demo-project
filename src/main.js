@@ -25,7 +25,6 @@ define(function (require, exports, module) {
         var user = require('common/user');
         user.checkLogin().done(function (data) {
             
-            
             require('common/hookajax')();
             require('./config');
             require('er').start();
