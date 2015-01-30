@@ -1,3 +1,5 @@
+@import '../../css/mixin';
+
 @keyframes rotate {
     from {
         -webkit-transform: rotate(0deg);
@@ -34,7 +36,9 @@ p {
     margin: 0px;
     padding: 0px;
 }
-.cdShow, .imageUpload, .posterShow {
+
+/* image upload */
+#upload-container {
     width: 100%;
     height: 100%;
     top: 0px;
@@ -42,153 +46,33 @@ p {
     position: absolute;
     z-index: 10;
 }
-
-/* poster show */
-#posterShow img {
-    width: 100%;
-    margin: 0px auto;
-    display: block;
-}
-#posterShow .text-box {
-    color: #fff;
+#image-upload .upload-scale {
     position: absolute;
-    top: 180px;
-    text-align: center;
-    width: 100%;
-    z-index: 10000;
-    line-height: 140%;
-    font-size: 18px;
-    opacity: 1;
-    font-family: Times, TimesNR, 'New Century Schoolbook', Georgia, 'New York', serif;
-    font-style: italic;
-}
-
-/* cd show */
-#cdShow .cd-cover {
-    width: 260px;
-    height: 260px;
-    margin: 0px auto;
-    margin-top: 20px;
-    border-radius: 130px;
-    -webkit-animation-duration: 9s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-name: rotate;
-    border: solid 5px #fff;
-}
-#cdShow .cd-cover div {
-    width: 250px;
-    height: 250px;
-    border-radius: 125px;
-    display: block;
-}
-#cdShow .btn-play, #cdShow .play-state {
-    background: url(../../images/playCtl.png) no-repeat scroll -200px 0;
-    width: 70px;
-    height: 70px;
-    position: absolute;
-    filter: alpha(opacity=90);
-    -moz-opacity: 0.9;
-    opacity: 0.9;
-    left: 100px;
-    top: 115px;
-}
-#cdShow .play-state {
-    top: 0;
-    left: 0;
-}
-#cdShow .btn-play.play-state-play .play-state {
-    background-position: 0 0;
-}
-#cdShow .btn-play.play-state-pause .play-state {
-    background-position: -100px 0;
-}
-#cdShow .text-box {
-    color: #333;
-    position: absolute;
-    top: 290px;
-    left: 20px;
-    width: 100%;
-    z-index: 10000;
-    line-height: 140%;
-    font-size: 18px;
-    opacity: 1;
-    font-family: Times, TimesNR, 'New Century Schoolbook', Georgia, 'New York', serif;
-    font-style: italic;
-    opacity: 0;
-}
-
-/* image upload */
-#imageUpload .text-color {
-    display: block;
-    width: 50px;
-    height: 50px;
-    border: solid 1px #ccc;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-}
-#imageUpload .selected {
-    background-image: url(../../images/btn_selected.png);
-    background-repeat: no-repeat;
-    background-position: center;
-}
-#imageUpload .text-edit {
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    padding: 4px;
-    border: solid 1px #fff;
-    margin-bottom: 6px;
-    width: 240px;
-}
-#imageUpload .upload-container {
-    margin-left: 20px;
-    border: solid 2px #fff;
-    margin: 0px auto;
-    width: 280px;
-    margin-top: 20px;
-    padding: 20px;
-    background: url(../../images/bg_trans.png);
-}
-#imageUpload .btnUpload .text {
-    font-size: 18px;
-    margin-top: 45px;
-    text-align: center;
-}
-#imageUpload .btnUpload {
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-    -moz-border-radius: 60px;
-    -webkit-border-radius: 60px;
-}
-#imageUpload .upload-scale {
+    z-index: 11;
     width: 100%;
     height: 100%;
     top: 0px;
     left: 0px;
-    position: absolute;
-    background: #333;
+    background: @background-color;
     display: none;
 }
-#imageUpload .zone {
+#image-upload .zone {
     width: 80%;
     height: 500px;
     margin: 0px auto;
     margin-top: 20px;
     overflow: hidden;
     position: relative;
-    background: #fff;
+    background: @background-color;
 }
-#imageUpload .zone img {
+#image-upload .zone img {
     position: absolute;
     left: 0px;
     top: 0px;
     width: 100%;
     display: block;
 }
-#imageUpload .zone div {
+#image-upload .zone div {
     position: absolute;
     left: 0px;
     bottom: 20px;
@@ -196,9 +80,9 @@ p {
     display: block;
     text-align: center;
     font-size: 14px;
-    color: #999;
+    color: #fff;
 }
-#imageUpload .btn-scale {
+#image-upload .btn-scale {
     bottom: 50px;
     left: 50%;
     padding: 10px;
@@ -208,17 +92,11 @@ p {
     text-align: center;
     z-index: 10;
 }
-#imageUpload input.disabled {
+#image-upload input.disabled {
     background: none;
     border: none;
 }
-#imageUpload .btnPublish {
-    border: none;
-    width: 90%;
-    text-align: center;
-    font-size: 22px;
-}
-#imageUpload .editContainer span {
+#image-upload .editContainer span {
     margin-bottom: 10px;
     display: block;
     color: #666;

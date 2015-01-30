@@ -2,9 +2,6 @@ var app = {};
 app.animate_goto = 3;
 app.animate_gotoup = 3;
 app.animate_gotodown = 4;
-app.shareTitle = $('#shareTitle').html();
-app.shareDesc = $('#shareDesc').html();
-app.shareImage = $('#shareImage').html();
 app.shareUrl = location.href;
 app.shareAppId = '';
 app.canTouchPage = 1;
@@ -22,6 +19,7 @@ app.showCopyright = true;
 app.loadingCallback = null;
 app.loadingDelay = 0;
 app.loopSwipe = 1;
+app.cardId = '';
 
 app.showArrows = function() {
     $('#arrows').show()
@@ -93,7 +91,7 @@ function setShareInfo(title, desc, image, params) {
     }
 }
 function getUrlParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
     results = regex.exec(location.search);
     return results === null ? '': decodeURIComponent(results[1].replace(/\+/g, " "))
@@ -385,7 +383,7 @@ function playPage() {
 
             // 贺卡初始化
             ApiPoster.init(
-                app.host, 70, '', "page-168",
+                app.host, app.cardId, '', "page-168",
                 function(imageurl, content) {
                     content = content.replace(/(^\s*)|(\s*$)/g, '');
                     if (content == '') {
@@ -404,7 +402,7 @@ function playPage() {
                         }
                     }
                     title = content.replace(/\n/g, " ");
-                    app.setShareImage(imageurl + "!300x300");
+                    app.setShareImage(imageurl);
                     app.setShareTitle(title)
                 },
                 "写下你的祝福", "换一换", "生成我的贺卡", 0
@@ -416,7 +414,6 @@ function playPage() {
         
     }
     if ($('#page-169').hasClass('in')) {
-        restartSnow();
         if (page169Inited == false) {
             page169Inited = true;
             var scene = document.getElementById('page-169');
@@ -442,7 +439,7 @@ function goPage(gotoPage) {
 function goPage2(animate, gotoPage) {
     var $pageWrapper = $("#wrapper");
     var $pages = $pageWrapper.find('.pt-page');
-    console.log($pages);
+    // console.log($pages);
     var pageCount = $pages.length;
     if (pageCount <= 1) return;
     PageTransitions.AnimateGo($pageWrapper, animate, gotoPage);
@@ -478,7 +475,16 @@ function fnTouchMoveEnabled(e) {
     e.preventDefault();
     e.stopPropagation()
 }
+function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
 function init() {
+    app.cardId = getQueryString('card_id');
     app.width = $(window).width();
     app.height = $('.main').height();
     if (app.init != null) {
@@ -503,13 +509,13 @@ function init() {
     }
 }
 $(function() {
-    app.shareTitle = $("#shareTitle").html();
-    app.shareDesc = $("#shareDesc").html();
-    app.shareImage = $("#shareImage").html();
+    app.shareTitle = $('#share-title').html();
+    app.shareDesc = $('#share-desc').html();
+    app.shareImage = $('#share-image').html();
     app.width = $(window).width();
     app.height = document.documentElement.clientHeight;
-    document.addEventListener('dblclick',
-    function(e) {
+
+    document.addEventListener('dblclick', function(e) {
         e.preventDefault()
     });
     init();
@@ -518,9 +524,9 @@ $(function() {
         $(document).swipeUp(function() {
             if (app.startTouchPage) {
                 if (app.loopSwipe == 0 && curPageIndex == 1) {
-                    return
+                    return;
                 }
-                goPage( - 1)
+                goPage(-1);
             }
         });
         $(document).swipeDown(function() {
@@ -528,22 +534,22 @@ $(function() {
                 if (app.loopSwipe == 0 && curPageIndex == 0) {
                     return
                 }
-                goPage( - 2)
+                goPage(-2);
             }
         });
-        $("#btnNext").show();
-        $("#btnNext").click(function() {
+        $('#btnNext').show();
+        $('#btnNext').click(function() {
             goPage( - 1)
         })
     }
-    $("#btn-audio").click(function() {
+    $('#btn-audio').click(function() {
         var myAudio = document.querySelectorAll('audio')[0];
         if (myAudio.paused) {
             myAudio.play();
-            $('.icon_audio').addClass('border_anim')
+            $('.icon-audio').addClass('border-anim')
         } else {
             myAudio.pause();
-            $('.icon_audio').removeClass('border_anim')
+            $('.icon-audio').removeClass('border-anim')
         }
         return false
     })

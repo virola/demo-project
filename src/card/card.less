@@ -263,6 +263,8 @@ audio {
 }
 .round-time h4 {
     font-size: 12px;
+    .transform(scale(.8));
+    width: 5em;
 }
 .gala {
     position: absolute;
@@ -274,7 +276,12 @@ audio {
     p {
         display: block;
         height: 50px;
-        font-size: 14px;
+        line-height: 50px;
+        font-size: 12px;
+    }
+
+    input, textarea {
+        outline: 0;
     }
 }
 
@@ -335,7 +342,7 @@ audio {
 }
 .from-txt {
     position: absolute;
-    bottom: 2%;
+    bottom: 0;
     left: 48%;
     width: 50%;
     height: 23px;
@@ -344,6 +351,8 @@ audio {
     background: none;
 }
 .mark-card-btn, .mark-photo-btn {
+    border: 0;
+    padding: 0;
     margin: 0 auto;
     display: block;
     border-radius: 5px;
@@ -354,10 +363,6 @@ audio {
     background-color: #fdd000;
     color: #5a3226;
     text-decoration: none;
-}
-.mark-card-btn:hover, .mark-photo-btn:hover {
-    background-color: #8a0009;
-    color: #fff;
 }
 
 /* 编辑照片页 */
@@ -430,8 +435,11 @@ audio {
     .gala {
         p {
             height: 20px;
+            line-height: 20px;
             font-size: 12px;
         }
+
+        
     }
     .gala-txt {
         margin: 15px auto;
@@ -439,9 +447,6 @@ audio {
     .part1 {
         position: relative;
         height: 24px;
-    }
-    .part3 img {
-        bottom: 1%;
     }
     .mark-card-btn, .mark-photo-btn {
         height: 28px;
