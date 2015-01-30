@@ -29,6 +29,8 @@ define(function (require, exports, module) {
             require('./config');
             require('er').start();
 
+            console.log(data);
+
             // 跳转到签到
             if (!data.signed) {
                 console.log('not signed!');

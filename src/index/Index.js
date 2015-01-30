@@ -31,11 +31,6 @@ define(function (require, exports, module) {
         view.on('act-click', function (args) {
             var link = $(args.data);
             var name = link.data('act');
-            // var states = STATE_MAP[link.data('act')] || null;
-            // if (!states) {
-            //     dialog.alert('活动还未开始！');
-            //     return;
-            // }
             
             actStatus.get().done(function () {
                 var result = actStatus.judge(name);
@@ -45,8 +40,8 @@ define(function (require, exports, module) {
                 else {
                     window.location.href = link.attr('href');
                 }
-            }).fail(function () {
-                dialog.alert('嘿！悠着点，活动还没开始呢！');
+            }).fail(function (msg) {
+                dialog.alert(msg || '嘿！悠着点，活动还没开始呢！');
             });
         });
     };

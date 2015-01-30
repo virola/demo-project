@@ -45,6 +45,9 @@ define(
                     if (result[SIGNED_KEY]) {
                         userModel.signed = 1;
                     }
+                    else {
+                        userModel.signed = 0;
+                    }
 
                     storage.set('user', userModel);
                     request.resolve(userModel);

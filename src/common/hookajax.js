@@ -57,22 +57,29 @@ define(
                     return data;
                 }
 
-                console.log(data);
-
                 // 302 redirect
                 if (data['status'] == 302) {
                     var url = data['redirect'];
                     window.location.href = url;
+
+                    return {};
                 }
                 else if (data['status'] == 0) {
                     // success
                     if (data['is_login'] == 0) {
                         window.location.href = require('url').USER_LOGIN;
+
+                        return {
+                            status: -1,
+                            is_login: 0,
+                            message: '您还未签到呢！'
+                        };
                     }
 
-                    return data['data'];
+                    // return data['data'];
                 }
                 
+                return data;
             };
 
         }

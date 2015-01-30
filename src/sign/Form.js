@@ -33,11 +33,19 @@ define(function (require, exports, module) {
                 name: data.name
             }; 
 
-            require('er/ajax').post(signUrl, params).done(function (result) {
-
-                user.updateSign(true);
-                action.redirect('/');
+            require('common/ajax').post(signUrl, params).done(function (result) {
+                    user.updateSign(true);
+                    action.redirect('/');
+            }).fail(function (result) {
+                require('common/dialog').alert(result.message || '请求失败，请稍候再试');
             });
+        });
+
+
+        require('common/user').checkSign().done(function (userModel) {
+            if (userModel && userModel.signed) {
+                require('er/locator').redirect('/');
+            }
         });
     };
 

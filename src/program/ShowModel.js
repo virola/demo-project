@@ -8,14 +8,14 @@ define(
 
             // datasource
             this.datasource = {
-                'list': datasource.remote(require('url').GET_PROGRAM_LIST, {
+                'source': datasource.remote(require('url').GET_PROGRAM_LIST, {
                     method: 'GET'
                 })
             };
         }
 
         IndexModel.prototype.prepare = function () {
-            var list = this.get('list');
+            var list = this.get('source').data || [];
             var len = list.length;
 
             var program = [];

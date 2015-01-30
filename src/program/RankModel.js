@@ -8,14 +8,14 @@ define(
 
             // datasource
             this.datasource = {
-                'list': datasource.remote(require('url').GET_PROGRAM_RANK, {
+                'source': datasource.remote(require('url').GET_PROGRAM_RANK, {
                     method: 'GET'
                 })
             };
         }
 
         RankModel.prototype.prepare = function () {
-            var list = this.get('list');
+            var list = this.get('source').data || [];
             var len = list.length;
 
             var voteMax;

@@ -38,17 +38,16 @@ define(
                 }
             }
 
-            require('er/ajax').getJSON(URL_STATE).done(function (data) {
-                console.log('request:', data);
+            require('common/ajax').getJSON(URL_STATE).done(function (result) {
                 exports.actStatus = {
                     timestamp: (new Date()).getTime(),
-                    status: data
+                    status: result
                 };
-
-                request.resolve(data);
+                request.resolve();
+                
             })
-            .fail(function (args) {
-                request.reject();
+            .fail(function (result) {
+                request.reject(result.message);
             });
 
             return request.promise;

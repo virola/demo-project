@@ -24,6 +24,7 @@ define(
         function loadData(model, options) {
             function addDataToModel(value) {
                 if (options.dump) {
+                    // debugger;
                     model.fill(value, SILENT);
                 }
                 else {

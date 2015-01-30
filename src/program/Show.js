@@ -26,7 +26,9 @@ define(function (require, exports, module) {
         });
 
         action.on('leave', function () {
-            action.view.swiper = null;
+            // if (action.view.swiper) {
+            //     action.view.swiper = null;
+            // }
         });
     };
 
@@ -40,7 +42,7 @@ define(function (require, exports, module) {
      */
     Show.prototype.vote = function(data) {
         var action = this;
-        require('er/ajax').post(VOTE_URL, data).done(function (result) {
+        require('common/ajax').post(VOTE_URL, data).done(function (result) {
             console.log(data);
 
             action.view.fire('vote', {

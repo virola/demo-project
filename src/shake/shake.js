@@ -2,7 +2,7 @@ define(
     function (require) {
 
         // 摇一摇间隔时间
-        var GAP_TIME = 15000;
+        var GAP_TIME = 8000;
 
         // request url
         var url = require('url').POST_SHAKE_GIFT;
@@ -32,7 +32,7 @@ define(
         exports.shake = function () {
             var _me = this;
 
-            require('er/ajax').post(url).done(function (data) {
+            require('common/ajax').post(url).done(function (data) {
                 console.log('shake~~');
                 _me.fire('shake', data);
             }).fail(function () {
@@ -40,7 +40,7 @@ define(
 
                 // 失败就是没摇中
                 _me.fire('shake', {
-                    status: 3
+                    status: 5
                 });
             });
         }

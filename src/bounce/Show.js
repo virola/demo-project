@@ -30,12 +30,13 @@ define(function (require, exports, module) {
 
             action.grabing = 1;
 
-            require('er/ajax').post(url.POST_BOUNCE).done(function (data) {
+            require('common/ajax').post(url.POST_BOUNCE).done(function (data) {
                 // 抢红包的结果
-                action.view.fire('showResult', data);
-            }).then(function () {
                 action.grabing = 0;
+                action.view.fire('showResult', data);
+                
             }).fail(function (args) {
+                action.grabing = 0;
                 console.log('fail');
             });
         });

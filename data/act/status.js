@@ -1,6 +1,7 @@
 exports.execute = function (context) {
     var response = {
         status: 0,
+        message: 'nologin',
         is_login: 1,
         data: {
             'xnhb1': 1,
