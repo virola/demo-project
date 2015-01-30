@@ -36,7 +36,6 @@ define(function (require, exports, module) {
             require('er/ajax').post(signUrl, params).done(function (result) {
 
                 user.updateSign(true);
-                
                 action.redirect('/');
             });
         });

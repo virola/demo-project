@@ -345,7 +345,7 @@ function loading() {
                 $('#loading b').html("正在加载：" + num + '%');
                 if (app.loadingCallback != null) app.loadingCallback(num);
                 if (num > 95) {
-                    $("#btnAudio").show();
+                    $("#btn-audio").show();
                     setTimeout(function() {
                         $('#loading').addClass('fadeOutUp animated');
                         setTimeout(function() {
@@ -366,7 +366,7 @@ function loading() {
             }
         }
     } else {
-        $("#btnAudio").show();
+        $("#btn-audio").show();
         $('#loading').hide();
         renderPage(app.startPageId);
         if (app.startPageId == 0) {
@@ -536,7 +536,7 @@ $(function() {
             goPage( - 1)
         })
     }
-    $("#btnAudio").click(function() {
+    $("#btn-audio").click(function() {
         var myAudio = document.querySelectorAll('audio')[0];
         if (myAudio.paused) {
             myAudio.play();

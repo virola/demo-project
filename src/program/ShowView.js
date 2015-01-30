@@ -52,6 +52,15 @@ define(
                     preventLinks: false,
                     longSwipesRatio: 0.3,
                     touchRatio: 1.2,
+                    onFirstInit: function () {
+                        $('.vote-btn').on('click', function () {
+                            view.fire('voteClick', {
+                                voteId: $(this).data('id')
+                            });
+
+                            return false;
+                        });
+                    }
                 });
             });
         };

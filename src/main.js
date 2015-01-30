@@ -47,7 +47,7 @@ define(function (require, exports, module) {
                 );
 
                 // debugger
-                weixin.enableDebug();  
+                // weixin.enableDebug();  
             });
         });
 

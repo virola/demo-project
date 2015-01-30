@@ -297,6 +297,10 @@ var defaultData = {
         },
         "json")
     }
+
+    
+
+    
     function bindImageUpload(pageId) {
         $("#" + pageId).prepend(_tmplImageUpload);
         _$imageUpload = $("#imageUpload");

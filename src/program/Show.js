@@ -19,15 +19,14 @@ define(function (require, exports, module) {
     Show.prototype.initBehavior = function() {
         var action = this;
         
-        action.on('entercomplete', function (args) {
-            // console.log(args);
-            
-            $('.vote-btn').on('click', function () {
-                var voteId = $(this).data('id');
-                action.vote({
-                    'vote_id': voteId
-                });
+        action.view.on('voteClick', function (args) {
+            action.vote({
+                'vote_id': args.voteId
             });
+        });
+
+        action.on('leave', function () {
+            action.view.swiper = null;
         });
     };
 
