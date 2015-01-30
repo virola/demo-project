@@ -27,13 +27,13 @@ define(function (require, exports, module) {
         var view = action.view;
 
         view.on('submit', function (data) {
+            var params = {
+                department: data.department,
+                mobile: data.mobile,
+                name: data.name
+            }; 
 
-            require('er/ajax').post(signUrl, data).done(function (result) {
-                // user.store({
-                //     department: data.department,
-                //     mobile: data.mobile,
-                //     name: data.name
-                // });
+            require('er/ajax').post(signUrl, params).done(function (result) {
 
                 user.updateSign(true);
                 
