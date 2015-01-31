@@ -8,8 +8,6 @@ $.extend($, {
             }
 
             var picupload = function(picdata) {
-                console.log(picdata);
-                // return false;
 
                 if (!XMLHttpRequest.prototype.sendAsBinary){
                     XMLHttpRequest.prototype.sendAsBinary = function(datastr) {

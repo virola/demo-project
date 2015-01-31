@@ -15,6 +15,11 @@ exports.getLocations = function () {
         {
             location: function (request) {
 
+                if (request.pathname.indexOf('index.php') > -1) {
+                    console.log('card!');
+                    return true;
+                }
+
                 var pathname = request.pathname;
                 var extname = path.extname(pathname);
 
@@ -29,6 +34,12 @@ exports.getLocations = function () {
         
             },
             handler: [function (context) {
+                if (context.request.pathname.indexOf('index.php') > -1) {
+                    require(path.join(
+                        exports.documentRoot, 'data', 'user/card'
+                    )).execute(context);
+                    return;
+                }
 
                 var request = context.request;
                 var pathname = request.pathname;

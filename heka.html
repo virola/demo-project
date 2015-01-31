@@ -45,7 +45,7 @@
 </section>
 
 <div id="share" class="pt-wrapper">
-        <b class="title">分享朋友圈↑↑</b>
+    <b class="title">分享朋友圈↑↑</b>
     <b class="msg"></b>
 </div>
 
@@ -60,12 +60,12 @@
 <script id="pages" type="text/html">
 <page id="page-166" class="pt-page  "  style="">
   <div class="blessing layer" data-depth="0.3">
-      <p class="blessing-to"><span><img src="src/img/card/to_txt.png"></span>亲爱的员工</p>
-      <p class="blessing-to">祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福。</p>
+      <p class="blessing-to"><span><img src="src/img/card/to_txt.png"></span><b id="card-to">亲爱的员工</b></p>
+      <p class="blessing-to" id="card-message"></p>
       <div class="main-pic">
-          <img src="src/img/card/card_pic1.jpg">
+          <img id="card-image" src="src/img/card/card_pic1.jpg">
       </div>
-      <p class="blessing-from"><span><img src="src/img/card/from_txt.png"></span>你的泰富</p>
+      <p class="blessing-from"><span><img src="src/img/card/from_txt.png"></span><b id="card-from">你的泰富</b></p>
   </div>
   </main>
 </page>
@@ -94,7 +94,7 @@
                     <div class="round round2"></div>
                 </div>
                 <div class="round-bg"></div>
-                <div class="round-time"><h3 class="text">选择照片</h3>{{if shareCount>200}}<h4>已有{{shareCount}}人参与</h4>{{/if}}</div>
+                <div class="round-time"><h3 class="text">选择照片</h3>{{if count>200}}<h4>已有{{count}}人参与</h4>{{/if}}</div>
             </div>
             <div class="gala">
                 <p>上传您准备好的照片，给Ta一个意外惊喜吧！</p>
@@ -142,17 +142,20 @@
 
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-0-2/esl.js"></script>
 <script src="lib/zepto/zepto.min.js"></script>
 <script src="lib/modernizr/modernizr.min.js"></script>
 <script>
 var URL_GET_CARD = '/index.php?app=card&func=show';
 var URL_POST_CARD = '/index.php?app=card&func=make';
-var BG_DEFAULT = '';
-
+var BG_DEFAULT = ''; //reinit
+var CARD_DEFAULT_DATA = {
+    from: '你的泰富',
+    to: '亲爱的员工',
+    message: '祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福语祝福。'
+};
 </script>
-<script src="src/card/base.js"></script>
 <script src="src/card/upload.js"></script>
+<script src="src/card/base.js"></script>
 <script src="src/card/app.js"></script>
 <script>
 var page166Inited = false;

@@ -59,21 +59,20 @@ var ApiPoster = (function() {
         })
     }
 
-var defaultData = {
-    'userContent': '',
-    'defaultBackground': BG_DEFAULT,
-    'userImageUrl': '',
-    'title': '',
-    'type': 'poster',
-    'musicUrl': '',
-    'shareCount': '1012'
-};
-
+    CARD_DEFAULT_DATA = $.extend(CARD_DEFAULT_DATA, {
+        'defaultBackground': BG_DEFAULT,
+        'image': '',
+        'count': '1012'
+    });
 
     function init(cardId, showPageId, uploadPageId, loadedCallback, mustUploadImage) {
         function handleCardData(data) {
-            var imageUrl = data.userImageUrl == '' ? data.defaultBackground: data.userImageUrl;
-            var userContent = data.userContent;
+            data = $.extend({}, CARD_DEFAULT_DATA, data);
+
+            app.renderCard(data);
+
+            var imageUrl = data.image == '' ? data.defaultBackground: data.image;
+            var userContent = data.message;
             if (showPageId != '') {
                 app.shareImage = imageUrl;
             }
@@ -84,7 +83,7 @@ var defaultData = {
                     textCount: 0,
                     cardId: cardId,
                     textColor: data.fontColor,
-                    shareCount: data.shareCount,
+                    count: data.count,
                     action: URL_POST_CARD,
                     btnUploadText: '',
                     btnPublishText: '',
@@ -104,19 +103,16 @@ var defaultData = {
         var sharedImageId = getUrlParameterByName('sid');
 
         if (!cardId) {
-            handleCardData(defaultData);
+            handleCardData(CARD_DEFAULT_DATA);
             return;
         }
 
         $.getJSON(URL_GET_CARD, {
             'card_id': cardId
-        }, handleCardData);
-
-        
-
+        }, function (result) {
+            handleCardData(result.data || {});
+        });
     }
-
-
 
 
     function bindImageUpload(pageId) {
@@ -176,10 +172,16 @@ var defaultData = {
                     to: strTo,
                     message: strMsg
                 },
-                success: function (data) {
-                    if (data.status == 0) {
-                        var cardId = data.data['card_id'];
-                        window.location.href = 'heka.html?card_id=' + cardId;
+                success: function (result) {
+                    try {
+                        data = JSON.parse(result);
+                        if (data.status == 0) {
+                            var cardId = data.data['card_id'];
+                            window.location.href = 'heka.html?card_id=' + cardId;
+                        }
+                    }
+                    catch (e) {
+                        console.log('error databack:', result);
                     }
                     
                     btnPublish.val('生成新年贺卡');
@@ -383,6 +385,14 @@ app.setShareUrl = function(url) {
 $('#share').click(function() {
     $(this).hide()
 });
+
+app.renderCard = function (data) {
+    $('#card-to').text(data.to);
+    $('#card-from').text(data.from);
+    $('#card-message').text(data.message);
+    $('#card-image').attr('src', data.image);
+};
+
 app.showCopyright = false;
 var _orialSharedTitle = null;
 var _orialSharedDesc = null;
@@ -680,9 +690,10 @@ function loading() {
                             $('#loading').hide()
                         },
                         1000)
-                    },
-                    app.loadingDelay);
+                    }, app.loadingDelay);
+
                     renderPage(app.startPageId);
+
                     if (app.startPageId == 0) {
                         var pages = $('#wrapper').find('.pt-page');
                         fnVisiablePage(pages.eq(0))
@@ -697,6 +708,7 @@ function loading() {
         $('#btn-audio').show();
         $('#loading').hide();
         renderPage(app.startPageId);
+
         if (app.startPageId == 0) {
             var pages = $('.pt-page');
             fnVisiablePage(pages.eq(0))
@@ -718,6 +730,7 @@ function playPage() {
                     if (content == '') {
                         content = '小伙伴\n新年快乐\n';
                     }
+
                     html = content.split("\n");
                     var from = '';
                     if (html.length > 2) {
@@ -767,12 +780,13 @@ function goPage(gotoPage) {
 function goPage2(animate, gotoPage) {
     var $pageWrapper = $("#wrapper");
     var $pages = $pageWrapper.find('.pt-page');
-    // console.log($pages);
+
     var pageCount = $pages.length;
     if (pageCount <= 1) return;
     PageTransitions.AnimateGo($pageWrapper, animate, gotoPage);
     var currentPageId = $pageWrapper.data('current');
     renderPage(currentPageId);
+
     var $currentPage = null;
     if (currentPageId == 0) {
         $currentPage = $pageWrapper.find('div.pt-page:not(.ifpage)').first()
