@@ -12,6 +12,13 @@
 .clearfix:before, .clearfix:after { content: " "; display: table; }
 .clearfix:after { clear: both; }
 
+input[type="button"], 
+input[type="submit"],
+input[type="reset"],
+button {
+    -webkit-appearance: none;
+}
+
 .pt-wrapper {
     width: 100%;
     height: 100%;
@@ -286,7 +293,7 @@ audio {
 }
 
 .gala-txt {
-    margin: 20px auto;
+    margin: 0 auto 20px;
     border-radius: 4px;
     padding: 15px 10px 0;
     width: 247px;
@@ -363,6 +370,7 @@ audio {
     background-color: #fdd000;
     color: #5a3226;
     text-decoration: none;
+    font-size: 16px;
 }
 
 /* 编辑照片页 */

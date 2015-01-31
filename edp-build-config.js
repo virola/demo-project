@@ -25,6 +25,7 @@ exports.getProcessors = function () {
         replacements: [
             { type: 'html', tag: 'link', attribute: 'href', extnames: pageEntries },
             { type: 'html', tag: 'img', attribute: 'src', extnames: pageEntries },
+            { type: 'html', tag: 'audio', attribute: 'src', extnames: pageEntries },
             { type: 'html', tag: 'script', attribute: 'src', extnames: pageEntries },
             { extnames: 'html', replacer: 'module-config' },
             { extnames: 'less,css', replacer: 'css' }
@@ -49,7 +50,6 @@ exports.getProcessors = function () {
 
 exports.exclude = [
     'data',
-    'lib',
     'tool',
     'doc',
     'test',

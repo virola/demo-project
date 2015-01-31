@@ -23,6 +23,7 @@
     <div id="share-image"></div>
     <div id="share-desc"></div>
     <div id="share-title"></div>
+    <img id="cover-default" src="src/img/card/card_pic1.jpg">
 </div>
 
 <div id="floor" class="pt-wrapper" >
@@ -57,7 +58,6 @@
 <!---page-->
 
 <script id="pages" type="text/html">
-   <!--All Pages-->
 <page id="page-166" class="pt-page  "  style="">
   <div class="blessing layer" data-depth="0.3">
       <p class="blessing-to"><span><img src="src/img/card/to_txt.png"></span>亲爱的员工</p>
@@ -84,7 +84,7 @@
 </script>
 <script type="text/html" id="upload-content">
 <section id="image-upload">
-    <form class="form" onsubmit="return false;">
+    <form class="form" enctype="multipart/form-data" method="post" onsubmit="return false;">
         <div id="upload-container">
             <div class="round-frame btn-upload">
                 <div class="hold-r hold-round1">
@@ -112,10 +112,10 @@
         <div class="upload-scale">
             <div class="zone" id="scale-zone">
                 <img id="image-scale" class="image-scale"/>
-                {{if frameFileName!=""}}<img src="{{frameFileName}}" class="image-mask"/>{{/if}}
+                <img src="src/img/card/image-mask.png" class="image-mask"/>
                 <div>移动或双指缩放图片</div>
             </div>
-            <a class="large button green btn-scale">确定</a>
+            <a class="large button green btn-scale">确 定</a>
         </div> 
 
         <input type="hidden" name="transform" class="transform">
@@ -135,35 +135,28 @@
 <!-- arrow -->
 <div id="arrows">
     <img class="arrow-down" src="src/img/arrow-down.png" alt="向下翻页">
-    <div class="u-arrow-down"><p class="icon-arrow"></p></div>
-    <div class="u-arrow-left"><p class="icon-arrow"></p></div>
 </div>
 
 <!---bg audio-->
-<div style="height:0px;overflow:hidden;"><audio id="bgAudio" src="src/img/card/music.mp3" loop="loop" preload="true" autoplay="autoplay"></audio></div>
+<div style="height:0px;overflow:hidden;"><audio id="bg-audio" src="src/img/card/music.mp3" loop="loop" preload="true" autoplay="autoplay"></audio></div>
 
-<script>
-var URL_GET_CARD = '';
-var URL_POST_CARD = '';
-var BG_DEFAULT = 'src/img/card/card_pic1.jpg';
-</script>
+
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/2-0-2/esl.js"></script>
 <script src="lib/zepto/zepto.min.js"></script>
 <script src="lib/modernizr/modernizr.min.js"></script>
+<script>
+var URL_GET_CARD = '/index.php?app=card&func=show';
+var URL_POST_CARD = '/index.php?app=card&func=make';
+var BG_DEFAULT = '';
 
-<script src="src/card/swipe.js"></script>
-<script src="src/card/tpl.js"></script>
-<script src="src/card/poster.js"></script>
-<script src="src/card/PageTransition.js"></script>
-
-<script src="src/card/Parallax.js"></script>
-
+</script>
+<script src="src/card/base.js"></script>
+<script src="src/card/upload.js"></script>
 <script src="src/card/app.js"></script>
-
 <script>
 var page166Inited = false;
 var page169Inited = false;
 </script>
- 
-    </body>
+</body>
 </html>

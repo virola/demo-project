@@ -1,3 +1,332 @@
+var ApiPoster = (function() {
+    var _cardId = 0;
+    var _$imageUpload = null;
+    var _mustUploadImage = 1;
+    function heredoc(fn) {
+        return fn.toString().split('\n').slice(1, -1).join('\n') + '\n'
+    }
+    var _tmplImageUpload = $('#upload-content').html();
+
+    function getUrlParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? '': decodeURIComponent(results[1].replace(/\+/g, " "))
+    }
+    function imageScale(file) {
+        if (!file) {
+            return false;
+        }
+        if (typeof FileReader === 'undefined') {
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#image-scale').attr('src', e.target.result)
+        };
+        reader.readAsDataURL(file);
+        _$imageUpload.find('.upload-scale').show();
+        app.hideArrows();
+        app.startTouchPage = false;
+
+        _$imageUpload.find('.transform').val('0,0,1,0');
+        ImageScale.init('scale-zone',
+        function(data) {
+            var w = _$imageUpload.find('.zone').width();
+            _$imageUpload.find('.transform').val(data.translate.x * 1.0 / w + ',' + data.translate.y * 1.0 / w + ',' + data.scale + ',' + data.angle)
+        })
+    }
+    function initText() {
+        var previewWidth = $('#preview').width();
+        var scale = previewWidth * 1.0 / 480;
+
+        var textColor = _$imageUpload.find('.textColor').val();
+        var textContainerObj = $('#textContainer');
+        var editContainerObj = _$imageUpload.find('.editContainer');
+
+        $('.text-edit').blur(function() {
+            var text = $(this).val();
+            var maxCount = parseInt($(this).attr('data'));
+            if (maxCount > 0 && text.length > maxCount) {
+                text = text.substr(0, maxCount)
+            }
+            if (!text) {
+                text = $(this).data('text');
+            }
+            $(this).val(text);
+            var id = $(this).attr('id');
+            _$imageUpload.find('.p' + id).html(text)
+        })
+    }
+
+var defaultData = {
+    'userContent': '',
+    'defaultBackground': BG_DEFAULT,
+    'userImageUrl': '',
+    'title': '',
+    'type': 'poster',
+    'musicUrl': '',
+    'shareCount': '1012'
+};
+
+
+    function init(cardId, showPageId, uploadPageId, loadedCallback, mustUploadImage) {
+        function handleCardData(data) {
+            var imageUrl = data.userImageUrl == '' ? data.defaultBackground: data.userImageUrl;
+            var userContent = data.userContent;
+            if (showPageId != '') {
+                app.shareImage = imageUrl;
+            }
+
+            if (uploadPageId != '') {
+                var renderUpload = template.compile(_tmplImageUpload);
+                _tmplImageUpload = renderUpload({
+                    textCount: 0,
+                    cardId: cardId,
+                    textColor: data.fontColor,
+                    shareCount: data.shareCount,
+                    action: URL_POST_CARD,
+                    btnUploadText: '',
+                    btnPublishText: '',
+                    btnChangeText: ''
+                });
+                bindImageUpload(uploadPageId)
+            }
+            if (loadedCallback != undefined) {
+                loadedCallback(imageUrl, userContent)
+            }
+        }
+
+        _cardId = cardId;
+        if (mustUploadImage != undefined) {
+            _mustUploadImage = mustUploadImage;
+        }
+        var sharedImageId = getUrlParameterByName('sid');
+
+        if (!cardId) {
+            handleCardData(defaultData);
+            return;
+        }
+
+        $.getJSON(URL_GET_CARD, {
+            'card_id': cardId
+        }, handleCardData);
+
+        
+
+    }
+
+
+
+
+    function bindImageUpload(pageId) {
+        $('#' + pageId).prepend(_tmplImageUpload);
+        _$imageUpload = $('#image-upload');
+        initText();
+
+        $('#file-to-upload').change(function() {
+            var file = document.getElementById('file-to-upload').files[0];
+            imageScale(file);
+            if (file) {
+                _$imageUpload.find('.photo-filename').val('OK');
+            }
+            else {
+                _$imageUpload.find('.photo-filename').val('');
+            }
+            
+            _$imageUpload.find('.btn-upload .text').html('选择完成');
+            _$imageUpload.find('.btn-upload').addClass('btn-upload-selected');
+            return false;
+        });
+        _$imageUpload.find('.btn-upload').click(function() {
+            $('#file-to-upload').trigger('click');
+            return false;
+        });
+        var btnPublish = _$imageUpload.find('.mark-card-btn');
+
+        btnPublish.click(function() {
+            var v = _$imageUpload.find('.photo-filename').val();
+            if (v == '' && _mustUploadImage == 1) {
+                alert('要上传照片哦，么么哒！');
+                return false;
+            }
+            
+            var form = _$imageUpload.find('.form');
+
+            var file = document.getElementById('file-to-upload').files[0];
+
+            btnPublish.val('正在生成...');
+            btnPublish.attr('disabled', true);
+
+            var transform = form.find('.transform').val();
+
+            var strFrom = $.trim(form.find('[name="from"]').val());
+            var strTo = $.trim(form.find('[name="to"]').val());
+            var strMsg = $.trim(form.find('[name="message"]').val());
+
+            // canvas resize file
+            $.buildfileupload({
+                uploadurl: URL_POST_CARD,
+                file: file,
+                uploadinputname: 'image',
+                maxfilesize: 1000 * 1000,
+                transform: transform,
+                uploadformdata: {
+                    from: strFrom,
+                    to: strTo,
+                    message: strMsg
+                },
+                success: function (data) {
+                    if (data.status == 0) {
+                        var cardId = data.data['card_id'];
+                        window.location.href = 'heka.html?card_id=' + cardId;
+                    }
+                    
+                    btnPublish.val('生成新年贺卡');
+                    btnPublish.removeAttr('disabled');
+                },
+                error: function () {
+                    btnPublish.val('生成新年贺卡');
+                    btnPublish.removeAttr('disabled');
+                }
+            });
+
+            // form.submit();
+            
+            return false;
+        });
+
+        var btnScale = _$imageUpload.find('.btn-scale');
+        btnScale.click(function() {
+            _$imageUpload.find('.upload-scale').hide();
+            app.startTouchPage = true;
+            app.showArrows()
+        })
+    }
+    return {
+        init: init,
+    }
+})();
+var ImageScale = (function() {
+    var reqAnimationFrame = (function() {
+        return window[Hammer.prefixed(window, 'requestAnimationFrame')] ||
+        function(callback) {
+            window.setTimeout(callback, 1000 / 60)
+        }
+    })();
+
+    var zone;
+    var el;
+    var START_X;
+    var START_Y;
+    var ticking = false;
+    var transform;
+    var timer;
+    var mc;
+    var updateCallback = null;
+
+    function init(scaleZoneId, callback) {
+        updateCallback = callback;
+        zone = document.querySelector("#" + scaleZoneId);
+        $("#" + scaleZoneId).height(($("#" + scaleZoneId).width() * 1.0 / 480) * 640);
+        el = document.querySelector("#image-scale");
+        START_X = 0;
+        START_Y = 0;
+        mc = new Hammer.Manager(zone);
+        mc.add(new Hammer.Pan({
+            threshold: 0,
+            pointers: 0
+        }));
+        mc.add(new Hammer.Swipe()).recognizeWith(mc.get('pan'));
+        mc.add(new Hammer.Rotate({
+            threshold: 0
+        })).recognizeWith(mc.get('pan'));
+        mc.add(new Hammer.Pinch({
+            threshold: 0
+        })).recognizeWith([mc.get('pan'), mc.get('rotate')]);
+        mc.add(new Hammer.Tap({
+            event: 'doubletap',
+            taps: 2
+        }));
+        mc.add(new Hammer.Tap());
+        mc.on('panstart panmove', onPan);
+        mc.on('rotatestart rotatemove', onRotate);
+        mc.on('pinchstart pinchmove', onPinch);
+        mc.on('doubletap', onDoubleTap);
+        resetElement()
+    }
+    function resetElement() {
+        el.className = 'animate';
+        transform = {
+            translate: {
+                x: START_X,
+                y: START_Y
+            },
+            scale: 1,
+            angle: 0
+        };
+        requestElementUpdate()
+    }
+    function updateElementTransform() {
+        var value = ['translate(' + transform.translate.x + 'px, ' + transform.translate.y + 'px)', 'scale(' + transform.scale + ', ' + transform.scale + ')', 'rotate(' + transform.angle + 'deg)'];
+        value = value.join(' ');
+        el.textContent = value;
+        el.style.webkitTransform = value;
+        el.style.mozTransform = value;
+        el.style.transform = value;
+        ticking = false;
+        if (updateCallback != null) {
+            updateCallback(transform)
+        }
+    }
+    function requestElementUpdate() {
+        if (!ticking) {
+            reqAnimationFrame(updateElementTransform);
+            ticking = true
+        }
+    }
+    function onPan(ev) {
+        el.className = '';
+        transform.translate = {
+            x: START_X + ev.deltaX,
+            y: START_Y + ev.deltaY
+        };
+        requestElementUpdate()
+    }
+    var initScale = 1;
+    function onPinch(ev) {
+        if (ev.type == 'pinchstart') {
+            initScale = transform.scale || 1
+        }
+        el.className = '';
+        transform.scale = initScale * ev.scale;
+        requestElementUpdate()
+    }
+    var initAngle = 0;
+    function onRotate(ev) {
+        if (ev.type == 'rotatestart') {
+            initAngle = transform.angle || 0
+        }
+        el.className = '';
+        transform.rz = 1;
+        transform.angle = initAngle + ev.rotation;
+        requestElementUpdate()
+    }
+    function onDoubleTap(ev) {
+        resetElement();
+        requestElementUpdate()
+    }
+    return {
+        init: init,
+    }
+})();
+
+
+/**
+ * 程序启动
+ * 
+ * @namespace
+ */
 var app = {};
 app.animate_goto = 3;
 app.animate_gotoup = 3;
@@ -92,9 +421,9 @@ function setShareInfo(title, desc, image, params) {
 }
 function getUrlParameterByName(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
     results = regex.exec(location.search);
-    return results === null ? '': decodeURIComponent(results[1].replace(/\+/g, " "))
+    return results === null ? '': decodeURIComponent(results[1].replace(/\+/g, ' '))
 }
 function checkIsPC() {
     var system = {
@@ -103,9 +432,9 @@ function checkIsPC() {
         xll: false
     };
     var p = navigator.platform;
-    system.win = p.indexOf("Win") == 0;
-    system.mac = p.indexOf("Mac") == 0;
-    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+    system.win = p.indexOf('Win') == 0;
+    system.mac = p.indexOf('Mac') == 0;
+    system.x11 = (p == 'X11') || (p.indexOf('Linux') == 0);
     if (system.win || system.mac || system.xll) {
         return true
     } else {
@@ -113,12 +442,12 @@ function checkIsPC() {
     }
 }
 function initPages() {
-    var html = $("#pages").html();
+    var html = $('#pages').html();
     html = html.replace(/\r|\n/g, '');
     var patt = new RegExp('<page(.*?class=\"pt-page.*?)style=\"(.*?)\">(.*?)<\/page>', 'g');
     var outer = '';
     while ((result = patt.exec(html)) != null) {
-        outer += "<div " + result[1] + "></div>";
+        outer += '<div ' + result[1] + '></div>';
         app.pages.push(result[3]);
         app.pagesBG.push(result[2])
     }
@@ -149,16 +478,17 @@ function initSpecialPages() {
                 bindPageEvent($page)
             }
             $page.height(app.height);
-            $page.find('img[data-link]').click(function() {
-                window.open($(this).attr('data-link'))
-            });
-            $page.find('div[data-link]').click(function() {
-                window.open($(this).attr('data-link'))
-            });
+            // $page.find('img[data-link]').click(function() {
+            //     window.open($(this).attr('data-link'))
+            // });
+            // $page.find('div[data-link]').click(function() {
+            //     window.open($(this).attr('data-link'))
+            // });
         }
         $wrapper.height(app.height)
     }
 }
+
 var curPageIndex = 0;
 function renderPage(pageId) {
     var $pageWrapper = $('#wrapper');
@@ -262,8 +592,8 @@ var currentScroll;
 var lastScroll;
 function fnCheckPageStyle(page) {
     var checkPage = page;
-    var hasStylex = checkPage.hasClass("xStyle");
-    var hasStyley = checkPage.hasClass("yStyle");
+    var hasStylex = checkPage.hasClass('xStyle');
+    var hasStyley = checkPage.hasClass('yStyle');
     return hasStylex || hasStyley
 }
 function fnLoadPageStyle(page) {
@@ -273,11 +603,11 @@ function fnLoadPageStyle(page) {
 }
 function fnUnLoadPageStyle() {
     if (lastScroll != undefined) {
-        lastScroll.css("overflow", "hidden");
+        lastScroll.css('overflow', 'hidden');
     }
 }
 function fnLoadScrollPage(page) {
-    var pageEvnet = document.getElementById(page.attr("id"));
+    var pageEvnet = document.getElementById(page.attr('id'));
     if (pageEvnet == undefined) {
         return
     }
@@ -291,20 +621,20 @@ function fnLoadScrollPage(page) {
     }
 }
 function initPC() {
-    var $copyright = $("#copyright");
+    var $copyright = $('#copyright');
     if (checkIsPC()) {
         app.isPc = true;
         app.width = 320;
         app.height = Math.min(960 * (320 / 640), app.height);
-        $(".pt-wrapper").width(app.width);
-        $(".pt-wrapper").height(app.height);
-        $(".pt-wrapper").css("margin", "0px auto");
+        $('.pt-wrapper').width(app.width);
+        $('.pt-wrapper').height(app.height);
+        $('.pt-wrapper').css('margin', '0px auto');
         $copyright.css({
-            "border": "none",
-            "color": "#00b7ff",
-            "background": "#fff",
-            "top": $(document).height() + "px",
-            "opacity": "1"
+            'border': 'none',
+            'color': '#00b7ff',
+            'background': '#fff',
+            'top': $(document).height() + 'px',
+            'opacity': '1'
         });
         $copyright.show();
         var left = $(window).width() / 2 + app.width / 2;
@@ -326,7 +656,7 @@ function loading() {
     }
     var div = document.createElement("div");
     div.innerHTML = app.pages[0];
-    $(div).find("img").each(function() {
+    $(div).find('img').each(function() {
         imgSrcList.push($(this).attr('src'))
     });
     var len = imgSrcList.length,
@@ -340,10 +670,10 @@ function loading() {
                 count++;
                 num = parseInt(count / len * 100, 10);
                 if (num > 100) num = 100;
-                $('#loading b').html("正在加载：" + num + '%');
+                $('#loading b').html('正在加载：' + num + '%');
                 if (app.loadingCallback != null) app.loadingCallback(num);
                 if (num > 95) {
-                    $("#btn-audio").show();
+                    $('#btn-audio').show();
                     setTimeout(function() {
                         $('#loading').addClass('fadeOutUp animated');
                         setTimeout(function() {
@@ -354,24 +684,24 @@ function loading() {
                     app.loadingDelay);
                     renderPage(app.startPageId);
                     if (app.startPageId == 0) {
-                        var pages = $("#wrapper").find('.pt-page');
+                        var pages = $('#wrapper').find('.pt-page');
                         fnVisiablePage(pages.eq(0))
                     } else {
-                        fnVisiablePage($("#wrapper").find("#" + app.startPageId))
+                        fnVisiablePage($('#wrapper').find('#' + app.startPageId))
                     }
                     playPage()
                 }
             }
         }
     } else {
-        $("#btn-audio").show();
+        $('#btn-audio').show();
         $('#loading').hide();
         renderPage(app.startPageId);
         if (app.startPageId == 0) {
             var pages = $('.pt-page');
             fnVisiablePage(pages.eq(0))
         } else {
-            fnVisiablePage($("#wrapper").find("#" + app.startPageId))
+            fnVisiablePage($('#wrapper').find('#' + app.startPageId))
         }
         playPage()
     }
@@ -382,12 +712,11 @@ function playPage() {
             page166Inited = true;
 
             // 贺卡初始化
-            ApiPoster.init(
-                app.host, app.cardId, '', "page-168",
+            ApiPoster.init(app.cardId, '', 'page-168',
                 function(imageurl, content) {
                     content = content.replace(/(^\s*)|(\s*$)/g, '');
                     if (content == '') {
-                        content = "小伙伴\n新年快乐\n"
+                        content = '小伙伴\n新年快乐\n';
                     }
                     html = content.split("\n");
                     var from = '';
@@ -398,14 +727,13 @@ function playPage() {
                     for (i = 0; i < 2; i++) {
                         msg += html[i];
                         if (i == 0) {
-                            msg += "，"
+                            msg += '，'
                         }
                     }
-                    title = content.replace(/\n/g, " ");
+                    title = content.replace(/\n/g, ' ');
                     app.setShareImage(imageurl);
                     app.setShareTitle(title)
-                },
-                "写下你的祝福", "换一换", "生成我的贺卡", 0
+                }
             );
 
             var scene = document.getElementById('page-166');
@@ -417,7 +745,7 @@ function playPage() {
         if (page169Inited == false) {
             page169Inited = true;
             var scene = document.getElementById('page-169');
-            var parallax = new Parallax(scene)
+            var parallax = new Parallax(scene);
         }
         
     }
@@ -466,7 +794,7 @@ function goPage2(animate, gotoPage) {
             $('.u-arrow-down').eq(0).show()
         }
     }
-    $pages.removeClass("in");
+    $pages.removeClass('in');
     fnUnLoadPageStyle();
     fnVisiablePage($currentPage);
     playPage();
@@ -502,7 +830,7 @@ function init() {
         $('.u-arrow-left').eq(0).hide()
     }
     document.addEventListener('touchmove', fnTouchMoveEnabled, false);
-    var pages = $("#wrapper").find(".pt-page");
+    var pages = $('#wrapper').find('.pt-page');
     var pageCount = pages.length;
     if (pageCount == 1) {
         $('.u-arrow-down').eq(0).hide()
@@ -514,6 +842,8 @@ $(function() {
     app.shareImage = $('#share-image').html();
     app.width = $(window).width();
     app.height = document.documentElement.clientHeight;
+
+    BG_DEFAULT = $('#cover-default').attr('src');
 
     document.addEventListener('dblclick', function(e) {
         e.preventDefault()
