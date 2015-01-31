@@ -60,7 +60,7 @@ define(
                 var request = new Deferred();
                 userModel = userModel || storage.get('user');
 
-                if (userModel && userModel[WX_KEY]) {
+                if (userModel && userModel.data[WX_KEY]) {
                     // login
                     
                     if (userModel.signed) {

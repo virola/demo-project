@@ -5,8 +5,6 @@ define(
         var ajax = require('er/ajax');
         var util = require('er/util');
 
-
-
         /**
          * ajax成功处理函数
          * 
@@ -18,20 +16,23 @@ define(
             var bizStatusCode = this.getEjsonStatus(data);
             var bizStatusInfo;
 
+
+            // 未签到
+            
             if (!bizStatusCode) {
                 ejsonResult.resolve(data.data || {});
                 return;
-             }
+            }
 
 
             // 系统级失败，包括后端服务崩溃、网络不可用、请求失败
             // 此时会弹出一个警告框，reject掉ajax结果
-            if (bizStatusCode > 999) {
+            if (bizStatusCode > 200) {
 
                 // 处理一下错误信息
                 // 如果后端没有给出错误信息，使用内置的错误信息
-                bizStatusInfo = data.statusInfo
-                    ? data.statusInfo
+                bizStatusInfo = data.message
+                    ? data.message
                     : this.BIZ_STATUS_TEXT[bizStatusCode];
                     
                 showAlert(bizStatusCode, bizStatusInfo);
@@ -42,11 +43,11 @@ define(
             }
 
             // 普通业务错误
-            bizStatusInfo = data.statusInfo;
+            bizStatusInfo = data.message;
             ejsonResult.resolve({
                 hasBizError: true,
                 status: bizStatusCode,
-                statusInfo: bizStatusInfo
+                message: bizStatusInfo
             });
         }
 
@@ -81,7 +82,7 @@ define(
             ejsonResult.resolve({
                 hasBizError: true,
                 status: bizStatusCode,
-                statusInfo: bizStatusInfo
+                message: bizStatusInfo
             });
 
         }
@@ -99,15 +100,14 @@ define(
             switch (bizStatusCode) {
 
                 // 未登录或者未签署协议，不弹框，直接跳转
-                case 1005:
+                case 302:
                     window.location.href = bizStatusInfo;
                     return;
 
-                // 未登录或者未签署协议，直接按statusInfo跳转
+                // 未登录或者未签署协议，直接按redirect跳转
                 case 1000: case 1001: 
-                    options.onok = function () {
-                        window.location.href = bizStatusInfo;
-                    };
+                    console.log('not signed!');
+                    window.location.href = require('url').USER_LOGIN;
                     break;
 
                 // 系统崩溃，直接跳转到系统不可用
@@ -229,6 +229,13 @@ define(
                 }
                 else if (obj.status > 0) {
                     bizErrorCode = obj.status;
+
+                    if (obj.status == 302) {
+                        obj.message = obj.redirect;
+                    }
+                }
+                else if (obj.status == 0 && obj['is_login'] == 0) {
+                    bizErrorCode = me.BIZ_STATUS_CODE.UNAUTHORIZED;
                 }
 
                 return bizErrorCode;
@@ -247,7 +254,7 @@ define(
                 NO_STATUS: 2001, // 不存在status字段
                 NAN_STATUS: 2002,  // 不能转化为数字的status字段
 
-                UNAUTHERIZED: 1000,             // 未认证/未登录
+                UNLOGIN: 302,                  // 未认证/未登录
                 UNAUTHORIZED: 1001,             // 未授权/未签用户协议
                 TIMEOUT: 1002,                  // 请求超时 原408
                 SYSTEM_FATAL: 1003,             // 系统异常
