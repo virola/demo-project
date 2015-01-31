@@ -61,7 +61,6 @@ var ApiPoster = (function() {
 
     CARD_DEFAULT_DATA = $.extend(CARD_DEFAULT_DATA, {
         'defaultBackground': BG_DEFAULT,
-        'image': '',
         'count': '1012'
     });
 
