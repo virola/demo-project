@@ -1,21 +1,21 @@
 define(
     function (require) {
         var Model = require('er/Model');
-        var datasource = require('er/datasource');
+        var datasource = require('common/datasource');
 
         function RankModel() {
             Model.apply(this, arguments);
 
             // datasource
             this.datasource = {
-                'source': datasource.remote(require('url').GET_PROGRAM_RANK, {
+                'list': datasource.remote(require('url').GET_PROGRAM_RANK, {
                     method: 'GET'
                 })
             };
         }
 
         RankModel.prototype.prepare = function () {
-            var list = this.get('source').data || [];
+            var list = this.get('list') || [];
             var len = list.length;
 
             var voteMax;
