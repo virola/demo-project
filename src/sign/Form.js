@@ -34,8 +34,14 @@ define(function (require, exports, module) {
             }; 
 
             require('common/ajax').post(signUrl, params).done(function (result) {
-                    user.updateSign(true);
-                    action.redirect('/');
+
+                if (result.bizError) {
+                    require('common/dialog').alert(result.message || '请求失败，请稍候再试');
+                    return;
+                }
+                
+                user.updateSign(true);
+                action.redirect('/');
             }).fail(function (result) {
                 require('common/dialog').alert(result.message || '请求失败，请稍候再试');
             });

@@ -72,7 +72,7 @@ define(
                         return {
                             status: -1,
                             is_login: 0,
-                            message: '您还未签到呢！'
+                            message: data.message || '您还未签到呢！'
                         };
                     }
 

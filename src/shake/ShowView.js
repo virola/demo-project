@@ -22,6 +22,8 @@ define(
 
         ShowView.prototype.template = 'shakepage';
 
+        var etpl = require('etpl');
+
         ShowView.prototype.showResult = function (status, data) {
 
             var view = this;
@@ -35,8 +37,7 @@ define(
 
                 return false;
             }
-
-            var etpl = require('etpl');
+            
             var html = etpl.render(template, data);
             var container = view.getContainerElement();
             container.innerHTML = html;

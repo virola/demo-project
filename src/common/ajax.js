@@ -36,7 +36,10 @@ define(
                     : this.BIZ_STATUS_TEXT[bizStatusCode];
                     
                 showAlert(bizStatusCode, bizStatusInfo);
-                ejsonResult.reject(bizStatusCode, bizStatusInfo);
+                ejsonResult.reject({
+                    status: bizStatusCode,
+                    message: bizStatusInfo
+                });
 
                 return;
 
@@ -45,7 +48,7 @@ define(
             // 普通业务错误
             bizStatusInfo = data.message;
             ejsonResult.resolve({
-                hasBizError: true,
+                bizError: true,
                 status: bizStatusCode,
                 message: bizStatusInfo
             });
@@ -80,7 +83,7 @@ define(
             bizStatusCode > 999 && showAlert(bizStatusCode);
 
             ejsonResult.resolve({
-                hasBizError: true,
+                bizError: true,
                 status: bizStatusCode,
                 message: bizStatusInfo
             });
@@ -108,7 +111,7 @@ define(
                 case 1000: case 1001: 
                     console.log('not signed!');
                     window.location.href = require('url').USER_LOGIN;
-                    break;
+                    return;
 
                 // 系统崩溃，直接跳转到系统不可用
                 case 1003:
@@ -234,7 +237,7 @@ define(
                         obj.message = obj.redirect;
                     }
                 }
-                else if (obj.status == 0 && obj['is_login'] == 0) {
+                else if (obj.status == -1 && obj['is_login'] == 0) {
                     bizErrorCode = me.BIZ_STATUS_CODE.UNAUTHORIZED;
                 }
 
