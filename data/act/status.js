@@ -16,7 +16,7 @@ exports.execute = function (context) {
         status: 0,
         message: 'nologin',
         redirect: '/heka.html',
-        is_login: Math.floor(Math.random() * 2),
+        is_login: 1,
         data: data
     };
 

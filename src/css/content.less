@@ -30,10 +30,8 @@
 
 
 @icon-size: 100px;
-@pos-y-1: 90px;
+@pos-y-1: 185px;
 @pos-x-1: -5px;
-@pos-x-2: 10%;
-@pos-y-2: 205px;
 
 .btn-round {
     padding: 10px;
@@ -118,8 +116,8 @@
 
     .item {
         &-message {
-            right: @pos-x-2;
-            top: @pos-y-2;
+            right: @pos-x-1;
+            top: @pos-y-1;
 
             .animation(rotate-y 1s .5s linear both);
         }
@@ -127,15 +125,6 @@
             margin-left: -@icon-size / 2;
             left: 50%;
             top: 0;
-        }
-        &-card {
-            right: @pos-x-1;
-            top: @pos-y-1;
-        }
-        
-        &-program {
-            left: @pos-x-2;
-            top: @pos-y-2;
         }
         &-yao {
             left: @pos-x-1;

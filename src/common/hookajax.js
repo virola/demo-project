@@ -67,7 +67,7 @@ define(
                 else if (data['status'] == 0) {
                     // success
                     if (data['is_login'] == 0) {
-                        window.location.href = require('url').USER_LOGIN;
+                        // window.location.href = require('url').USER_LOGIN;
 
                         return {
                             status: -1,

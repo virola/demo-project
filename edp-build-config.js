@@ -42,8 +42,10 @@ exports.getProcessors = function () {
     return {
         'debug': [ lessProcessor, moduleProcessor, pathMapperProcessor ],
         'default': [
-            lessProcessor, cssProcessor, moduleProcessor,
-            jsProcessor, tplMerge, pathMapperProcessor, addCopyright
+            lessProcessor, cssProcessor, 
+            tplMerge,
+            moduleProcessor,
+            jsProcessor, pathMapperProcessor, addCopyright
         ]
     };
 };

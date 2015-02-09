@@ -3,6 +3,4 @@
 
 构建编译的命令：
 
-    edp build --stage=release
-
-构建产出于 `output` 文件夹，将文件复制到上层目录的 `deploy` 文件夹之后提交SVN 
+    edp build -f

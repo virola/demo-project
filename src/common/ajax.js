@@ -110,14 +110,11 @@ define(
                 // 未登录或者未签署协议，直接按redirect跳转
                 case 1000: case 1001: 
                     console.log('not signed!');
-                    window.location.href = require('url').USER_LOGIN;
+                    // window.location.href = require('url').USER_LOGIN;
                     return;
 
                 // 系统崩溃，直接跳转到系统不可用
                 case 1003:
-                    options.onok = function () {
-                        window.location.href = '/error/1003.html';
-                    };
                     break;
             }
 
