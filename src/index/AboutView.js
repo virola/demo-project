@@ -1,6 +1,6 @@
 define(function(require) {
     
-    require('er/tpl!./index.html');
+    require('er/tpl!./about.html');
 
     var dialog = require('common/dialog');
 

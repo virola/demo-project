@@ -14,7 +14,8 @@ define(function (require) {
             {
                 retrieve: function() {
                     var now = new Date;
-                    var nowDate = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+                    var nowDate = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + ' '
+                        + now.getHours() + ':' + now.getMinutes();
 
                     return {
                         initDate: '2015-2-28',
