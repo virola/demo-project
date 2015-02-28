@@ -33,15 +33,6 @@ define(
                 if (!options.timeout) {
                     options.timeout = 30000;
                 }
-
-                var userId = userData && userData.data && userData.data['wx_openid'];
-                if (userId) {
-                    options.url += ((options.url.indexOf('?') < 0) ? '?' : '&') + 'wx_openid=' + userId;
-                }
-
-                if (projectId) {
-                    options.url += ((options.url.indexOf('?') < 0) ? '?' : '&') + 'project_id=' + projectId;
-                }
             };
 
             ajax.hooks.afterReceive = function (xhr, options) {
@@ -63,20 +54,6 @@ define(
                     window.location.href = url;
 
                     return {};
-                }
-                else if (data['status'] == 0) {
-                    // success
-                    if (data['is_login'] == 0) {
-                        // window.location.href = require('url').USER_LOGIN;
-
-                        return {
-                            status: -1,
-                            is_login: 0,
-                            message: data.message || '您还未签到呢！'
-                        };
-                    }
-
-                    // return data['data'];
                 }
                 
                 return data;
