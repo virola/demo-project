@@ -5,7 +5,9 @@
 
 JS部分：
 
-- 基础库： [zepto.js](http://zeptojs.com/)
+- 基础库： 
+    * DOM操作: [zepto.js](http://zeptojs.com/)
+    * 模块加载器: [esl](https://github.com/ecomfe/esl)
 - MVC框架：
     * 开发工具: [edp](https://github.com/ecomfe/edp)
     * framework: [er](https://github.com/ecomfe/er)
