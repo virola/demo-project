@@ -1,7 +1,7 @@
 PC演示项目
 ===========
 
-## 简介
+##简介
 通用开发的SPA项目
 
 JS部分：
@@ -17,7 +17,7 @@ JS部分：
 使用 [LESS](http://lesscss.net/)，和基于`less`的工具库 [est](https://github.com/ecomfe/est) 提高开发效率
 
 
-## 环境准备
+##环境准备
 
 1. 安装[node](http://nodejs.org/download/)；
 1. 安装开发工具；
@@ -25,7 +25,7 @@ JS部分：
     npm install -g edp edp-build
 
 
-## 开发调试
+##开发调试
 
     edp ws start
 
@@ -34,7 +34,7 @@ JS部分：
     http://localhost:8118/
 
 
-## 测试&上线构建
+##测试&上线构建
 构建编译的命令：
 
     edp build -f
