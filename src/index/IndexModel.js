@@ -1,17 +1,34 @@
-define(
-    function (require) {
-        var Model = require('er/Model');
+define(function (require) {
+    var Model = require('er/Model');
 
-        function IndexModel() {
-            Model.apply(this, arguments);
+    function IndexModel() {
+        
+        this.datasource = [
+            {
+                // 使用数据获取配置项指定name
+                retrieve: function () {
+                    return 'virola';
+                },
+                name: 'username'
+            },
+            {
+                retrieve: function() {
+                    var now = new Date;
+                    var nowDate = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 
-            var user = require('common/user').get();
+                    return {
+                        initDate: '2015-2-28',
+                        nowDate: nowDate
+                    };
+                },
+                dump: true
+            }
+        ];
 
-            this.set('user', user.data);
-        }
-
-        require('er/util').inherits(IndexModel, Model);
-
-        return IndexModel;
+        Model.apply(this, arguments);
     }
-);
+
+    require('er/util').inherits(IndexModel, Model);
+
+    return IndexModel;
+});

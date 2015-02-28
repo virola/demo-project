@@ -10,19 +10,9 @@ define(
                 title: '首页'
             },
             {
-                path: '/message',
-                type: 'message/Form',
-                title: '新年祝福'
-            },
-            {
-                path: '/bounce',
-                type: 'bounce/Show',
-                title: '新年红包'
-            },
-            {
-                path: '/shake',
-                type: 'shake/Show',
-                title: '摇一摇'
+                path: '/about',
+                type: 'index/About',
+                title: '关于我们'
             }
         ];
 

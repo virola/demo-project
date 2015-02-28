@@ -2,6 +2,24 @@ define(
     function (require) {
         var dialog = {};
 
+        /**
+         * 对话框
+         * 
+         * @constructor
+         * @param {Object} options 参数
+         * 
+         * @param {string} title 标题
+         * @param {string} content 内容
+         * @param {string} width 宽度
+         * @param {boolean} autoOpen 是否自动展示
+         * @param {boolean} mask 是否显示遮罩
+         * @param {string} buttons 按钮事件
+         *  {
+         *      text: '确定',
+         *      style: 'btn-ok',
+         *      fn: function () {}
+         *  }
+         */
         function Dialog(options) {
             this.options = $.extend({
                 autoOpen: 1
@@ -78,11 +96,17 @@ define(
             show: function () {
                 var layer = this.layer;
                 var height = layer.height();
+                var width = layer.width();
                 var winHeight = $(window).height();
+                var winWidth = $(window).width();
 
                 var top = (winHeight - height) / 2;
+                var left = (winWidth - width) / 2;
 
-                layer.css('top', top + 'px');
+                layer.css({
+                    'top': top + 'px',
+                    'left': left + 'px'
+                });
             },
 
             dispose: function () {
@@ -95,9 +119,10 @@ define(
 
         dialog.alert = function (msg, title, okhandler) {
             var options = {
-                title: title,
+                title: title || '提示',
                 content: msg,
                 mask: 1,
+                width: 460,
                 buttons: [
                     {
                         text: '确 定',

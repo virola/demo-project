@@ -1,10 +1,8 @@
-exports.port = 8848;
+exports.port = 8118;
 exports.directoryIndexes = true;
 exports.documentRoot = __dirname;
 var path = require('path');
 var fs = require('fs');
-
-var fileserver = 'http://localhost/sites/er-projects/taifu-app/data/file.php';
 
 exports.getLocations = function () {
     return [

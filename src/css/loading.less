@@ -1,14 +1,5 @@
-@import 'mixin';
 
-// 首页加载
-.page-loading {
-    padding-top: 3em;
-    
-    img {
-        margin: 0 auto;
-        width: 80%;
-    }
-}
+@circle-size: 32px;
 
 // ajax加载样式
 .loading {
@@ -22,12 +13,12 @@
 }
 .circle {
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: @circle-size;
+    height: @circle-size;
     left: 50%;
     top: 50%;
-    margin-left: -32px;
-    margin-top: -32px;
+    margin-left: -@circle-size / 2;
+    margin-top: -@circle-size / 2;
 }
 .circle div {
     position: absolute;

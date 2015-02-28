@@ -1,36 +1,52 @@
-@import 'mixin';
-
-@color-red: #c81528;
-@color-black: #5a3226;
-@color-white: #fff; 
 
 .btn {
     display: inline-block;
     padding: 5px 20px;
-    margin-bottom: 0;
-    font-size: 20px;
+    margin: 0;
+    border: 1px solid #ccc;
+    font-size: 14px;
     line-height: 26px;
-    color: @color-white;
     text-align: center;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
     vertical-align: middle;
     cursor: pointer;
-    background-color: #c2c2c2;
-
-    border: 1px solid #cccccc;
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #333;
+    background-color: #fff;
     border-bottom-color: #b3b3b3;
 
-    // .border-radius(4px);
+    .user-select(none);
     .box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05));
 
+
+    &:active, &:focus, &:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+
+    &:active, &:focus {
+        outline: 0;
+        background-image: none;
+        -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+        box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    }
+
+    &:focus {
+        outline: thin dotted;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+    }
+
+    
     &-primary {
-        color: @color-red;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        background-color: #fdd000;
-        border-color: #f89406 #f89406 #ad6704;
-        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;
+
+        &:active, &:focus, &:hover {
+            color: #fff;
+            background-color: #31b0d5;
+            border-color: #269abc;
+        }
     }
 }
 

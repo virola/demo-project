@@ -35,8 +35,14 @@ exports.getProcessors = function () {
     });
     var addCopyright = new AddCopyright();
 
-    var tplMerge = new TplMerge({
-        outputType: 'js'
+    var tplMerge = new TplMerge();
+
+    var variable = new VariableSubstitution({
+        files: ['*.html', '*.manifest'],
+        variables: {
+            version: version,
+            hash: Math.round(Math.random() * 3000)
+        }
     });
 
     return {
